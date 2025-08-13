@@ -1,0 +1,30 @@
+{
+  "name": "@ruornil/design-system",
+  "version": "0.1.0",
+  "description": "IoFBIM brand tokens and Tailwind preset",
+  "license": "MIT",
+  "private": false,
+  "type": "module",
+  "files": [
+    "tokens.css",
+    "tailwind-preset"
+  ],
+  "exports": {
+    "./tokens.css": "./tokens.css",
+    "./tailwind-preset": "./tailwind-preset/index.cjs"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ruornil/iofbim-design-system.git"
+  },
+  "peerDependencies": {
+    "tailwindcss": ">=3.4.0"
+  },
+  "scripts": {
+    "prepare": "npm run build || true",
+    "build": "echo \"(optional) add generators later\""
+  }
+}
