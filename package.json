@@ -2,7 +2,30 @@
   "name": "@iofbim/design-system",
   "version": "0.1.0",
   "private": true,
+  "type": "commonjs",
   "main": "tailwind-preset/index.cjs",
-  "files": ["tokens.css", "tailwind-preset/index.cjs", "README.md", "package.json"],
-  "license": "MIT"
+  "exports": {
+    ".": "./tailwind-preset/index.cjs",
+    "./tailwind-preset": "./tailwind-preset/index.cjs",
+    "./tokens.css": "./tokens.css"
+  },
+  "files": [
+    "tailwind-preset/index.cjs",
+    "tailwind-preset/index.d.ts",
+    "tokens.css",
+    "README.md",
+    "package.json"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "tailwind-merge": "^3.3.1"
+    },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0"
+  }
 }
