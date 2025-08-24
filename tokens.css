@@ -27,10 +27,3 @@
   --space-lg: 1.5rem;
 }
 
-/* Optional dark mode hook (tune later if you enable dark theme) */
-/*
-:root[data-theme="dark"] {
-  --color-customBg: 17 24 39;     // example
-  --color-textDark: 243 244 246;  // example
-}
-*/
