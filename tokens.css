@@ -27,3 +27,10 @@
   --space-lg: 1.5rem;
 }
 
+/* Shrink typography on small screens without Tailwind plugin
+   This reduces the root font-size, which scales all rem-based text utilities. */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px; /* ~2px smaller than default 16px */
+  }
+}
