@@ -15,6 +15,9 @@
        --font-sans  (Montserrat)
        --font-sans2 (Raleway)
      We add a safe serif fallback so Tailwind's "serif" family resolves. */
+  /* Defaults below ensure sane rendering if apps do not set next/font vars */
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
+  --font-sans2: ui-sans-serif, system-ui, sans-serif;
   --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 
   /* Radius & spacing (optional; extend as needed) */
@@ -38,6 +41,15 @@
 /* -----------------------------
    Design System Utilities (CSS)
    ----------------------------- */
+
+/* Apply DS defaults to your root container/body if desired */
+.ds-root {
+  background-color: rgb(var(--color-customBg));
+  color: rgb(var(--color-textDark));
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 /* Surface panels */
 .ds-panel {
