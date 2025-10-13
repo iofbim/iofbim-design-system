@@ -1,15 +1,15 @@
 :root {
   /* === Colors (RGB triplets so opacity works with Tailwind) === */
-  --color-customBg: 228 227 225; /* #E4E3E1 */
-  --color-prim:      154 150 146; /* #9A9692 */
-  --color-accent:    206 206 206; /* #CECECE */
-  --color-highlight: 182 169 162; /* #B6A9A2 */
+  --color-customBg: 228 227 225; /* #E4E3E1 | Warm Light Gray – soft neutral background with a warm beige tint */
+  --color-prim:      154 150 146; /* #9A9692 | Mushroom Gray – muted gray-brown, versatile primary neutral */
+  --color-accent:    206 206 206; /* #CECECE | Pale Silver – cool, light gray accent for borders or subtle highlights */
+  --color-highlight: 182 169 162; /* #B6A9A2 | Taupe Mist – light taupe with soft pink-brown undertones */
 
-  --color-textDark:  63 59 54;    /* #3F3B36 */
-  --color-textMid:   106 97 92;   /* #6A615C */
-  --color-textLight: 241 235 231; /* #F1EBE7 */
-  --color-textAccent:70 145 98;   /* #469162 */
-
+  --color-textDark:  63 59 54;    /* #3F3B36 | Charcoal Brown – deep earthy gray for main text */
+  --color-textMid:   106 97 92;   /* #6A615C | Stone Gray – mid-tone neutral, suitable for secondary text */
+  --color-textLight: 241 235 231; /* #F1EBE7 | Ivory Mist – off-white with a warm tint for light-on-dark use */
+  --color-textAccent:70 145 98;   /* #469162 | Forest Green – natural green accent for highlights, success, or action states */
+  
   /* === Typography tokens ===
      These variables are set by next/font in your layout:
        --font-sans  (Montserrat)
