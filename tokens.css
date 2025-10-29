@@ -129,3 +129,90 @@
 .gradientCardBG { background-image: linear-gradient(to bottom right, rgb(var(--color-prim)), rgb(var(--color-accent))); }
 .gradientBG2 { background-image: linear-gradient(to right, rgb(var(--color-textDark)), rgb(var(--color-textMid))); }
 .imageMask { -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent); mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent); }
+/* ==========================
+   TopNav (shared header bar)
+   ==========================
+   Use `.ds-topnav ds-topnav-size-md` around your nav groups to ensure
+   consistent sizing across apps. The size utility sets CSS variables
+   that are applied to child `.ds-nav-item` elements.
+*/
+.ds-topnav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.ds-topnav__group {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 2px; /* thin frame inside border */
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 1rem; /* soft rounded */
+  background-color: rgba(var(--color-accent), 0.60);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+/* Sizing variables applied within .ds-topnav scope */
+.ds-topnav {
+  --ds-topnav-px: 1rem;   /* left/right padding of nav item */
+  --ds-topnav-py: 0.375rem; /* top/bottom padding of nav item */
+  --ds-topnav-font: 0.875rem; /* text-sm */
+}
+.ds-topnav-size-sm { --ds-topnav-px: 0.5rem;  --ds-topnav-py: 0.25rem;  --ds-topnav-font: 0.75rem; }
+.ds-topnav-size-md { --ds-topnav-px: 0.75rem; --ds-topnav-py: 0.375rem; --ds-topnav-font: 0.875rem; }
+.ds-topnav-size-lg { --ds-topnav-px: 1rem;   --ds-topnav-py: 0.5rem;   --ds-topnav-font: 1rem; }
+
+/* Apply sizing only when `.ds-nav-item` lives under `.ds-topnav` */
+.ds-topnav .ds-nav-item {
+  padding-left: var(--ds-topnav-px);
+  padding-right: var(--ds-topnav-px);
+  padding-top: var(--ds-topnav-py);
+  padding-bottom: var(--ds-topnav-py);
+  font-size: var(--ds-topnav-font);
+}
+
+/* Simple dropdown pattern */
+.ds-dropdown { position: relative; }
+.ds-topnav__dropdown {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 6px);
+  min-width: 150px;
+  padding: 4px;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255,255,255,0.15);
+  background-color: rgba(var(--color-accent), 0.90);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: opacity .15s ease, transform .15s ease, visibility .15s ease;
+}
+.ds-dropdown:hover .ds-topnav__dropdown,
+.ds-dropdown:focus-within .ds-topnav__dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.ds-topnav__dropdown a {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  color: rgb(var(--color-textMid));
+}
+.ds-topnav__dropdown a:hover,
+.ds-topnav__dropdown a:focus-visible {
+  background-color: rgba(255,255,255,0.15);
+  outline: none;
+}
