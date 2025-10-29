@@ -7,7 +7,8 @@
   "exports": {
     ".": "./tailwind-preset/index.cjs",
     "./tailwind-preset": "./tailwind-preset/index.cjs",
-    "./tokens.css": "./tokens.css"
+    "./tokens.css": "./tokens.css",
+    "./components/*": "./components/*"
   },
   "files": [
     "tailwind-preset/index.cjs",
