@@ -6,6 +6,13 @@ Purpose
 - Shared header/navigation bar to keep a consistent look & size across all iofBIM sites and tools.
 - Works with plain HTML (no framework) and has a React/TSX component for apps.
 
+Floating header and background
+------------------------------
+- The soft pill background and blur come from the design system; no extra CSS is required.
+- To match the floating look used in screenshots: add `ds-topnav--floating`.
+  - Mobile: sticky at the top.
+  - ≥640px: fixed with a small top offset (approx Tailwind `top-3`).
+
 Prerequisites
 -------------
 - Include `design-system/iofbim-design-system/tokens.css` on every page/app using TopNav.
@@ -15,7 +22,7 @@ HTML Usage
 ----------
 <link rel="stylesheet" href="/path/to/design-system/iofbim-design-system/tokens.css" />
 
-<div class="ds-topnav ds-topnav-size-md">
+<div class="ds-topnav ds-topnav-size-md ds-topnav--floating">
   <nav class="ds-topnav__group" aria-label="Site">
     <a href="/#IOB" class="ds-nav-item">I of BIM</a>
     <a href="/#WhatWeCanDo" class="ds-nav-item">What we can do</a>
@@ -46,6 +53,7 @@ import "design-system/iofbim-design-system/tokens.css";
 
 <TopNav
   size="md"
+  className="ds-topnav--floating"
   lang="en"
   onToggleLang={() => setLang(prev => prev === "en" ? "tr" : "en")}
   links={{ iofbim: "/#IOB", whatWeCanDo: "/#WhatWeCanDo", projects: "/#ProjectsSection", contact: "/#ContactSection" }}
@@ -57,4 +65,3 @@ Consistency Notes
 - `.ds-topnav-size-md` ensures the same pill/button height and font-size everywhere.
 - The inner buttons use the shared `.ds-nav-item` style; TopNav overrides their padding/font via CSS variables.
 - Keep border and background colors as defined to match the screenshots.
-
