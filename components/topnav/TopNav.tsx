@@ -80,7 +80,7 @@ export function TopNav({
     <div className={["ds-topnav", sizeClass, className].filter(Boolean).join(" ")}> 
       {/* Primary site nav */}
       <nav className="ds-topnav__group" aria-label="Site">
-        <a href={links?.iofbim ?? "/#IOB"} className="ds-nav-item"><span className="md-only">{t.iofbim}</span><span className="sm-only">IoB</span></a>
+        <a href={links?.iofbim ?? "/#IOB"} className="ds-nav-item">{t.iofbim}</a>
         <a href={links?.whatWeCanDo ?? "/#WhatWeCanDo"} className="ds-nav-item">{t.whatWeCanDo}</a>
         <a href={links?.projects ?? "/#ProjectsSection"} className="ds-nav-item">{t.projects}</a>
         <a href={links?.contact ?? "/#ContactSection"} className="ds-nav-item">{t.contact}</a>
@@ -115,4 +115,3 @@ export function TopNav({
 }
 
 export default TopNav;
-
