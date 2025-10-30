@@ -10,10 +10,12 @@
     "./tokens.css": "./tokens.css",
     "./components/*": "./components/*"
   },
+  "types": "./index.d.ts",
   "files": [
     "tailwind-preset/index.cjs",
     "tailwind-preset/index.d.ts",
     "tokens.css",
+    "index.d.ts",
     "components/**/*",
     "README.md",
     "package.json"
