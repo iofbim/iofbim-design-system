@@ -39,7 +39,8 @@ const defaultLabels = {
     whatWeCanDo: "What we can do",
     projects: "Projects",
     contact: "Contact",
-    tools: "IofBIM Tools",
+    tools: "I of BIM Tools",
+    toolsSm: "IoB Tools",
     ifcSchema: "IFC Schema",
     bep: "BEP Authoring Tool",
     ids: "IDS Authoring Tool",
@@ -52,7 +53,8 @@ const defaultLabels = {
     whatWeCanDo: "Neler yapabiliriz",
     projects: "Projeler",
     contact: "İletişim",
-    tools: "IofBIM Araçları",
+    tools: "I of BIM Araçları",
+    toolsSm: "IoB Araçları",
     ifcSchema: "IFC Şeması",
     bep: "BEP Oluşturma Aracı",
     ids: "IDS Oluşturma Aracı",
@@ -80,16 +82,20 @@ export function TopNav({
     <div className={["ds-topnav", sizeClass, className].filter(Boolean).join(" ")}> 
       {/* Primary site nav */}
       <nav className="ds-topnav__group" aria-label="Site">
-        <a href={links?.iofbim ?? "/#IOB"} className="ds-nav-item">{t.iofbim}</a>
-        <a href={links?.whatWeCanDo ?? "/#WhatWeCanDo"} className="ds-nav-item">{t.whatWeCanDo}</a>
-        <a href={links?.projects ?? "/#ProjectsSection"} className="ds-nav-item">{t.projects}</a>
-        <a href={links?.contact ?? "/#ContactSection"} className="ds-nav-item">{t.contact}</a>
+        <a href={links?.iofbim ?? "/#IOB"} className="ds-nav-item">
+          <span className="ds-md-up">{t.iofbim}</span>
+          <span className="ds-sm-only">I of BIM</span>
+        </a>
+        <a href={links?.whatWeCanDo ?? "/#WhatWeCanDo"} className="ds-nav-item ds-md-up">{t.whatWeCanDo}</a>
+        <a href={links?.projects ?? "/#ProjectsSection"} className="ds-nav-item ds-md-up">{t.projects}</a>
+        <a href={links?.contact ?? "/#ContactSection"} className="ds-nav-item ds-md-up">{t.contact}</a>
       </nav>
 
       {/* Tools dropdown (desktop first, CSS hover) */}
-      <nav className="ds-topnav__group" aria-label="Tools" style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}>
+      <nav className="ds-topnav__group ds-mx-sm" aria-label="Tools">
         <div className="ds-dropdown">
-          <button type="button" className="ds-nav-item" aria-haspopup="menu" aria-expanded={false}>{t.tools}</button>
+          <button type="button" className="ds-md-up ds-nav-item" aria-haspopup="menu" aria-expanded="false">{t.tools}</button>
+          <button type="button" className="ds-sm-only ds-nav-item" aria-haspopup="menu" aria-expanded="false">{t.toolsSm}</button>
           <div role="menu" className="ds-topnav__dropdown">
             <a role="menuitem" href={tools?.ifcSchema ?? "/tools/IFC_schema"}>{t.ifcSchema}</a>
             <a role="menuitem" href={tools?.bep ?? "/tools/bep"}>{t.bep}</a>
@@ -102,9 +108,9 @@ export function TopNav({
       <nav className="ds-topnav__group" aria-label="Language">
         {onToggleLang ? (
           <button type="button" className="ds-nav-item" onClick={onToggleLang}>
-            <span style={{ fontWeight: lang === "en" ? 700 : 400, color: lang === "en" ? "#ffffff" : undefined }}>{t.en}</span>
-            <span style={{ padding: "0 0.375rem" }}>{t.divider}</span>
-            <span style={{ fontWeight: lang === "tr" ? 700 : 400, color: lang === "tr" ? "#ffffff" : undefined }}>{t.tr}</span>
+            <span className={lang === "en" ? "ds-bold ds-text-white" : undefined}>{t.en}</span>
+            <span className="ds-divider">{t.divider}</span>
+            <span className={lang === "tr" ? "ds-bold ds-text-white" : undefined}>{t.tr}</span>
           </button>
         ) : (
           <span className="ds-nav-item">{t.en} {t.divider} {t.tr}</span>
