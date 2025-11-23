@@ -1,21 +1,14 @@
 :root {
   /* === Colors (RGB triplets so opacity works with Tailwind) === */
-  --color-customBg: 228 227 225; /* #E4E3E1 */
-  --color-prim:      154 150 146; /* #9A9692 */
-  --color-accent:    206 206 206; /* #CECECE */
-  --color-highlight: 182 169 162; /* #B6A9A2 */
+  --color-customBg: 228 227 225; /* #E4E3E1 | Warm Light Gray – soft neutral background with a warm beige tint */
+  --color-prim:      154 150 146; /* #9A9692 | Mushroom Gray – muted gray-brown, versatile primary neutral */
+  --color-accent:    206 206 206; /* #CECECE | Pale Silver – cool, light gray accent for borders or subtle highlights */
+  --color-highlight: 182 169 162; /* #B6A9A2 | Taupe Mist – light taupe with soft pink-brown undertones */
 
-  --color-textDark:  63 59 54;    /* #3F3B36 */
-  --color-textMid:   106 97 92;   /* #6A615C */
-  --color-textLight: 241 235 231; /* #F1EBE7 */
-  --color-textAccent:70 145 98;   /* #469162 */
-
-  /* === Typography tokens ===
-     These variables are set by next/font in your layout:
-       --font-sans  (Montserrat)
-       --font-sans2 (Raleway)
-     We add a safe serif fallback so Tailwind's "serif" family resolves. */
-  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --color-textDark:  63 59 54;    /* #3F3B36 | Charcoal Brown – deep earthy gray for main text */
+  --color-textMid:   106 97 92;   /* #6A615C | Stone Gray – mid-tone neutral, suitable for secondary text */
+  --color-textLight: 241 235 231; /* #F1EBE7 | Ivory Mist – off-white with a warm tint for light-on-dark use */
+  --color-textAccent:70 145 98;   /* #469162 | Forest Green – natural green accent for highlights, success, or action states */
 
   /* Radius & spacing (optional; extend as needed) */
   --radius-xl: 1rem;
@@ -27,10 +20,214 @@
   --space-lg: 1.5rem;
 }
 
-/* Optional dark mode hook (tune later if you enable dark theme) */
-/*
-:root[data-theme="dark"] {
-  --color-customBg: 17 24 39;     // example
-  --color-textDark: 243 244 246;  // example
+/* Shrink typography on small screens without Tailwind plugin
+   This reduces the root font-size, which scales all rem-based text utilities. */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px; /* ~2px smaller than default 16px */
+  }
 }
+
+/* -----------------------------
+   Design System Utilities (CSS)
+   ----------------------------- */
+
+/* Apply DS defaults to your root container/body if desired */
+.ds-root {
+  background-color: rgb(var(--color-customBg));
+  color: rgb(var(--color-textDark));
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Surface panels */
+.ds-panel {
+  background-color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.05);
+}
+
+/* Small pill labels */
+.ds-chip {
+  display: inline-block;
+  padding: 0.125rem 0.5rem; /* ~py-0.5 px-2 */
+  border-radius: var(--radius-full);
+  font-size: 0.75rem; /* text-xs */
+  line-height: 1rem;
+}
+
+/* Buttons */
+.ds-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.75rem; /* py-2 px-3 */
+  border-radius: 0.75rem; /* ~rounded-xl */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+.ds-btn--primary {
+  background-color: rgb(var(--color-prim));
+  color: rgb(var(--color-textLight));
+}
+.ds-btn--ghost {
+  background-color: transparent;
+  color: rgb(var(--color-textDark));
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+/* Gradients */
+.ds-gradient {
+  background-image: linear-gradient(to right, rgb(var(--color-prim)), rgb(var(--color-accent)));
+}
+.ds-gradient-card {
+  background-image: linear-gradient(to bottom right, rgb(var(--color-prim)), rgb(var(--color-accent)));
+}
+.ds-gradient-dark {
+  background-image: linear-gradient(to right, rgb(var(--color-textDark)), rgb(var(--color-textMid)));
+}
+
+/* Mask helpers */
+.ds-mask-horizontal {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+}
+
+/* Nav item */
+.ds-nav-item {
+  padding-left: 1rem; /* px-4 */
+  padding-right: 1rem;
+  padding-top: 0.375rem; /* py-1.5 */
+  padding-bottom: 0.375rem;
+  border-radius: var(--radius-full);
+  color: rgb(var(--color-textMid));
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 600; /* font-semibold */
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.ds-nav-item:hover {
+  background-color: rgba(255,255,255,0.30);
+  color: #ffffff;
+}
+
+/* Back-compat aliases (to avoid blank UI if apps still reference old names) */
+.nav-item { @apply px-4 py-1.5 rounded-full text-textMid text-sm font-semibold; }
+.nav-item:hover { background-color: rgba(255,255,255,0.30); color: #ffffff; }
+.gradientBG { background-image: linear-gradient(to right, rgb(var(--color-prim)), rgb(var(--color-accent))); }
+.gradientCardBG { background-image: linear-gradient(to bottom right, rgb(var(--color-prim)), rgb(var(--color-accent))); }
+.gradientBG2 { background-image: linear-gradient(to right, rgb(var(--color-textDark)), rgb(var(--color-textMid))); }
+.imageMask { -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent); mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent); }
+/* ==========================
+   TopNav (shared header bar)
+   ==========================
+   Use `.ds-topnav ds-topnav-size-md` around your nav groups to ensure
+   consistent sizing across apps. The size utility sets CSS variables
+   that are applied to child `.ds-nav-item` elements.
 */
+.ds-topnav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.ds-topnav__group {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 2px; /* thin frame inside border */
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 1rem; /* soft rounded */
+  background-color: rgb(var(--color-accent) / 0.60);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+/* Sizing variables applied within .ds-topnav scope */
+.ds-topnav {
+  --ds-topnav-px: 1rem;   /* left/right padding of nav item */
+  --ds-topnav-py: 0.375rem; /* top/bottom padding of nav item */
+  --ds-topnav-font: 0.875rem; /* text-sm */
+}
+.ds-topnav-size-sm { --ds-topnav-px: 0.5rem;  --ds-topnav-py: 0.25rem;  --ds-topnav-font: 0.75rem; }
+.ds-topnav-size-md { --ds-topnav-px: 0.75rem; --ds-topnav-py: 0.375rem; --ds-topnav-font: 0.875rem; }
+.ds-topnav-size-lg { --ds-topnav-px: 1rem;   --ds-topnav-py: 0.5rem;   --ds-topnav-font: 1rem; }
+
+/* Apply sizing only when `.ds-nav-item` lives under `.ds-topnav` */
+.ds-topnav .ds-nav-item {
+  padding-left: var(--ds-topnav-px);
+  padding-right: var(--ds-topnav-px);
+  padding-top: var(--ds-topnav-py);
+  padding-bottom: var(--ds-topnav-py);
+  font-size: var(--ds-topnav-font);
+}
+
+/* Simple dropdown pattern */
+.ds-dropdown { position: relative; }
+.ds-topnav__dropdown {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 6px);
+  min-width: 150px;
+  padding: 4px;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255,255,255,0.15);
+  background-color: rgb(var(--color-accent) / 0.90);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: opacity .15s ease, transform .15s ease, visibility .15s ease;
+}
+
+/* Floating variant: sticky on small screens, fixed with offset on >=640px */
+.ds-topnav--floating { width: 100%; }
+@media (min-width: 640px) {
+  .ds-topnav--floating {
+    position: fixed;
+    top: 0.75rem; /* ~top-3 */
+    left: 0;
+    right: 0;
+  }
+}
+.ds-dropdown:hover .ds-topnav__dropdown,
+.ds-dropdown:focus-within .ds-topnav__dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.ds-topnav__dropdown a {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  color: rgb(var(--color-textMid));
+}
+.ds-topnav__dropdown a:hover,
+.ds-topnav__dropdown a:focus-visible {
+  background-color: rgba(255,255,255,0.15);
+  outline: none;
+}
+
+/* Responsive visibility helpers (no Tailwind dependency) */
+.ds-md-up { display: none; }
+@media (min-width: 768px) { .ds-md-up { display: inline; } }
+.ds-sm-only { display: inline; }
+@media (min-width: 768px) { .ds-sm-only { display: none; } }
+
+/* Small horizontal margin utility for grouping navs */
+.ds-mx-sm { margin-left: 0.5rem; margin-right: 0.5rem; }
+
+/* Simple text utilities used by TopNav */
+.ds-text-white { color: #ffffff; }
+.ds-bold { font-weight: 700; }
+.ds-divider { padding: 0 0.375rem; }
