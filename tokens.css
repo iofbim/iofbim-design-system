@@ -1,6 +1,6 @@
 :root {
   /* === Colors (RGB triplets so opacity works with Tailwind) === */
-  --color-customBg: 228 227 225; /* #E4E3E1 | Warm Light Gray – soft neutral background with a warm beige tint */
+  --color-customBg:  228 227 225; /* #E4E3E1 | Warm Light Gray – soft neutral background with a warm beige tint */
   --color-prim:      154 150 146; /* #9A9692 | Mushroom Gray – muted gray-brown, versatile primary neutral */
   --color-accent:    206 206 206; /* #CECECE | Pale Silver – cool, light gray accent for borders or subtle highlights */
   --color-highlight: 182 169 162; /* #B6A9A2 | Taupe Mist – light taupe with soft pink-brown undertones */
@@ -83,7 +83,7 @@
   background-image: linear-gradient(to right, rgb(var(--color-prim)), rgb(var(--color-accent)));
 }
 .ds-gradient-card {
-  background-image: linear-gradient(to bottom right, rgb(var(--color-prim)), rgb(var(--color-accent)));
+  background-image: linear-gradient(to bottom right, rgb(var(--color-accent)), rgb(var(--color-prim)));
 }
 .ds-gradient-dark {
   background-image: linear-gradient(to right, rgb(var(--color-textDark)), rgb(var(--color-textMid)));
