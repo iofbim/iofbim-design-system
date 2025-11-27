@@ -7,14 +7,15 @@ type DialogProps = {
     title?: string;
     children?: React.ReactNode;
     footer?: React.ReactNode;
+    className?: string;
 };
 
-export function Dialog({ open, onClose, title, children, footer }: DialogProps) {
+export function Dialog({ open, onClose, title, children, footer, className }: DialogProps) {
     if (!open) return null;
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={onClose}>
             <div
-                className="w-full max-w-2xl rounded-xl bg-white p-4 shadow-2xl"
+                className={`w-full rounded-xl bg-white p-4 shadow-2xl ${className || "max-w-5xl"}`}
                 onClick={(e) => e.stopPropagation()}
                 role="dialog"
                 aria-modal="true"
