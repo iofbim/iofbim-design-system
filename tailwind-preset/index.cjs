@@ -13,6 +13,7 @@ module.exports = {
         textMid: 'rgb(var(--color-textMid) / <alpha-value>)',
         textLight: 'rgb(var(--color-textLight) / <alpha-value>)',
         textAccent: 'rgb(var(--color-textAccent) / <alpha-value>)',
+        textContrast: 'rgb(var(--color-textContrast) / <alpha-value>)',
         brand: 'rgb(var(--color-brand) / <alpha-value>)'
       },
       fontFamily: {
