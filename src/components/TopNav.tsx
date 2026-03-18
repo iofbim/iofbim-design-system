@@ -1,4 +1,6 @@
 
+"use client";
+import { ThemeToggle } from "./ThemeToggle";
 
 export type SupportedLang = "en" | "tr";
 
@@ -31,6 +33,7 @@ export interface TopNavProps {
     };
     size?: "sm" | "md" | "lg";
     className?: string;
+    showThemeToggle?: boolean;
 }
 
 const defaultLabels = {
@@ -72,6 +75,7 @@ export function TopNav({
     labels,
     size = "md",
     className,
+    showThemeToggle = true,
 }: TopNavProps) {
     const t = { ...defaultLabels[lang], ...labels };
 
@@ -103,6 +107,13 @@ export function TopNav({
                     </div>
                 </div>
             </nav>
+
+            {/* Theme toggle */}
+            {showThemeToggle && (
+                <nav className="ds-topnav__group ds-mx-sm" aria-label="Theme">
+                    <ThemeToggle />
+                </nav>
+            )}
 
             {/* Language toggle */}
             <nav className="ds-topnav__group" aria-label="Language">
