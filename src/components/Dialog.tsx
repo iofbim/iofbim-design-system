@@ -15,7 +15,7 @@ export function Dialog({ open, onClose, title, children, footer, className }: Di
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={onClose}>
             <div
-                className={`w-full rounded-xl bg-white p-4 shadow-2xl ${className || "max-w-5xl"}`}
+                className={`w-full rounded-xl bg-surface text-textDark p-4 shadow-2xl ${className || "max-w-5xl"}`}
                 onClick={(e) => e.stopPropagation()}
                 role="dialog"
                 aria-modal="true"

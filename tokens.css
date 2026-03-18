@@ -8,9 +8,31 @@
   --color-textDark:  63 59 54;    /* #3F3B36 | Charcoal Brown – deep earthy gray for main text */
   --color-textMid:   106 97 92;   /* #6A615C | Stone Gray – mid-tone neutral, suitable for secondary text */
   --color-textLight: 241 235 231; /* #F1EBE7 | Ivory Mist – off-white with a warm tint for light-on-dark use */
-  --color-textAccent:13 115 119;   /* #0D7377 | Blueprint Teal – aligned with brand accent */
-  --color-textContrast: 119 17 13; /* #771110  | Dark red/maroon */
-  --color-brand:     13 115 119;  /* #0D7377 | Blueprint Teal – brand action color; change this one value to retheme all accents across apps */
+  --color-textAccent:   13 115 119;  /* #0D7377 | Blueprint Teal – aligned with brand accent */
+  --color-textContrast: 119 17 13;  /* #771110 | Dark red/maroon */
+
+  /* Brand */
+  --color-brand:      13 115 119; /* #0D7377 | Blueprint Teal – primary action / brand accent */
+
+  /* Status */
+  --color-danger:    128 0 32;    /* #800020 | Burgundy – destructive actions */
+  --color-success:    70 145 98;  /* #469162 | Forest Green – same as textAccent */
+  --color-warning:   180 110 20;  /* #B46E14 | Amber – caution / warning states */
+  --color-info:       13 115 119; /* #0D7377 | Blueprint Teal – informational */
+
+  /* Surfaces */
+  --color-surface:    255 255 255; /* #FFFFFF | Panel / dialog background */
+  --color-surfaceMid: 245 244 242; /* #F5F4F2 | Nested / secondary surface */
+
+  /* IDS domain semantic colors (ISO cardinality concepts) */
+  --color-ids-required:   180 110 20;  /* amber    – required facet */
+  --color-ids-optional:    13 115 119; /* teal     – optional facet */
+  --color-ids-prohibited: 128 0 32;    /* burgundy – prohibited facet */
+  --color-ids-neutral:    154 150 146; /* prim     – n/a / neutral */
+
+  /* Context-mode indicators (IDS app) */
+  --color-ctx-doc:   59 130 246;  /* Blue   – documentation / annotation mode */
+  --color-ctx-bsdd: 147 51 234;   /* Purple – bSDD linked mode */
 
   /* Radius & spacing (optional; extend as needed) */
   --radius-xl: 1rem;
@@ -20,6 +42,101 @@
   --space-sm: 0.5rem;
   --space-md: 1rem;
   --space-lg: 1.5rem;
+}
+
+/* ==============================
+   Dark mode – system preference
+   ============================== */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-customBg:    28 26 24;
+    --color-prim:       110 106 102;
+    --color-accent:      55 52 50;
+    --color-highlight:   80 72 68;
+
+    --color-textDark:   241 235 231; /* inverted – now the "dark" var holds light text */
+    --color-textMid:    190 182 178;
+    --color-textLight:  241 235 231;
+    --color-textAccent: 100 180 130;
+
+    --color-brand:       20 160 165;
+    --color-danger:     210 60 80;
+    --color-success:    100 180 130;
+    --color-warning:    220 150 40;
+    --color-info:        20 160 165;
+
+    --color-surface:     40 38 36;
+    --color-surfaceMid:  50 48 46;
+
+    --color-ids-required:   220 150 40;
+    --color-ids-optional:    20 160 165;
+    --color-ids-prohibited: 210 60 80;
+
+    --color-ctx-doc:    96 165 250;
+    --color-ctx-bsdd:  192 132 252;
+  }
+}
+
+/* ==============================
+   Dark mode – explicit user opt-in
+   ============================== */
+[data-theme="dark"] {
+  --color-customBg:    28 26 24;
+  --color-prim:       110 106 102;
+  --color-accent:      55 52 50;
+  --color-highlight:   80 72 68;
+
+  --color-textDark:   241 235 231;
+  --color-textMid:    190 182 178;
+  --color-textLight:  241 235 231;
+  --color-textAccent: 100 180 130;
+
+  --color-brand:       20 160 165;
+  --color-danger:     210 60 80;
+  --color-success:    100 180 130;
+  --color-warning:    220 150 40;
+  --color-info:        20 160 165;
+
+  --color-surface:     40 38 36;
+  --color-surfaceMid:  50 48 46;
+
+  --color-ids-required:   220 150 40;
+  --color-ids-optional:    20 160 165;
+  --color-ids-prohibited: 210 60 80;
+
+  --color-ctx-doc:    96 165 250;
+  --color-ctx-bsdd:  192 132 252;
+}
+
+/* ==============================
+   Light mode – explicit user opt-in (overrides OS dark preference)
+   ============================== */
+[data-theme="light"] {
+  --color-customBg:   228 227 225;
+  --color-prim:       154 150 146;
+  --color-accent:     206 206 206;
+  --color-highlight:  182 169 162;
+
+  --color-textDark:    63 59 54;
+  --color-textMid:    106 97 92;
+  --color-textLight:  241 235 231;
+  --color-textAccent:  70 145 98;
+
+  --color-brand:       13 115 119;
+  --color-danger:     128 0 32;
+  --color-success:     70 145 98;
+  --color-warning:    180 110 20;
+  --color-info:        13 115 119;
+
+  --color-surface:    255 255 255;
+  --color-surfaceMid: 245 244 242;
+
+  --color-ids-required:   180 110 20;
+  --color-ids-optional:    13 115 119;
+  --color-ids-prohibited: 128 0 32;
+
+  --color-ctx-doc:    59 130 246;
+  --color-ctx-bsdd:  147 51 234;
 }
 
 /* Shrink typography on small screens without Tailwind plugin
@@ -45,7 +162,7 @@
 
 /* Surface panels */
 .ds-panel {
-  background-color: #ffffff;
+  background-color: rgb(var(--color-surface));
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: var(--radius-xl);
   box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.05);
@@ -69,15 +186,77 @@
   padding: 0.5rem 0.75rem; /* py-2 px-3 */
   border-radius: 0.75rem; /* ~rounded-xl */
   box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  cursor: pointer;
+  font-weight: 500;
+  transition: opacity 0.15s ease, background-color 0.15s ease;
 }
+.ds-btn:hover { opacity: 0.88; }
 .ds-btn--primary {
   background-color: rgb(var(--color-prim));
   color: rgb(var(--color-textLight));
+}
+.ds-btn--secondary {
+  background-color: rgb(var(--color-surface) / 0.85);
+  color: rgb(var(--color-textDark));
+  border: 1px solid rgba(0,0,0,0.12);
+}
+.ds-btn--accent {
+  background-color: rgb(var(--color-brand));
+  color: rgb(var(--color-textLight));
+  border: 1px solid rgba(0,0,0,0.2);
+}
+.ds-btn--danger {
+  background-color: rgb(var(--color-danger));
+  color: rgb(var(--color-textLight));
+  border: 1px solid rgba(0,0,0,0.2);
 }
 .ds-btn--ghost {
   background-color: transparent;
   color: rgb(var(--color-textDark));
   border: 1px solid rgba(255,255,255,0.15);
+}
+/* Button sizes */
+.ds-btn--sm { padding: 0.375rem 0.5rem;  border-radius: 0.5rem;  font-size: 0.8125rem; }
+.ds-btn--md { padding: 0.5rem  0.75rem;  border-radius: 0.75rem; font-size: 0.875rem; }
+.ds-btn--lg { padding: 0.75rem 1rem;     border-radius: 1rem;    font-size: 1rem; }
+
+/* Chip variants */
+.ds-chip--inverse { background-color: rgb(var(--color-textDark));  color: rgb(var(--color-textLight)); }
+.ds-chip--accent  { background-color: rgb(var(--color-highlight)); color: rgb(var(--color-textLight)); }
+.ds-chip--primary { background-color: rgb(var(--color-prim));      color: rgb(var(--color-textLight)); }
+
+/* Input / textarea / select base */
+.ds-input {
+  display: block;
+  width: 100%;
+  background-color: rgb(var(--color-surface));
+  border: 1px solid rgba(0,0,0,0.18);
+  border-radius: 0.5rem;
+  padding: 0.375rem 0.625rem;
+  font-size: 0.75rem;
+  outline: none;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.ds-input:focus {
+  box-shadow: 0 0 0 2px rgb(var(--color-prim) / 0.35);
+  border-color: rgb(var(--color-prim) / 0.5);
+}
+.ds-input--sm { border-radius: 0.5rem;  padding: 0.375rem 0.625rem; font-size: 0.75rem; }
+.ds-input--md { border-radius: 0.75rem; padding: 0.5rem   0.75rem;  font-size: 0.875rem; }
+.ds-input--lg { border-radius: 1rem;    padding: 0.625rem 0.875rem; font-size: 1rem; }
+
+/* Facet containers (IDS domain) */
+.ds-facet {
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 12px;
+  padding: 8px;
+  background-color: rgb(var(--color-surfaceMid));
+}
+.ds-facet--group {
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: rgb(var(--color-surfaceMid));
 }
 
 /* Gradients */
