@@ -12,7 +12,8 @@ module.exports = {
         textDark: 'rgb(var(--color-textDark) / <alpha-value>)',
         textMid: 'rgb(var(--color-textMid) / <alpha-value>)',
         textLight: 'rgb(var(--color-textLight) / <alpha-value>)',
-        textAccent: 'rgb(var(--color-textAccent) / <alpha-value>)'
+        textAccent: 'rgb(var(--color-textAccent) / <alpha-value>)',
+        brand: 'rgb(var(--color-brand) / <alpha-value>)'
       },
       fontFamily: {
         // You already set these with next/font in layout.tsx
