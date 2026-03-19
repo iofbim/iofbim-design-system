@@ -8,8 +8,8 @@
   --color-textDark:  63 59 54;    /* #3F3B36 | Charcoal Brown – deep earthy gray for main text */
   --color-textMid:   106 97 92;   /* #6A615C | Stone Gray – mid-tone neutral, suitable for secondary text */
   --color-textLight: 241 235 231; /* #F1EBE7 | Ivory Mist – off-white with a warm tint for light-on-dark use */
-  --color-textAccent:   13 115 119;  /* #0D7377 | Blueprint Teal – aligned with brand accent */
-  --color-textContrast: 119 17 13;  /* #771110 | Dark red/maroon */
+  --color-textAccent:   13 115 119; /* #0D7377 | Blueprint Teal – aligned with brand accent */
+  --color-textContrast: 180 55 55;  /* #B43737 | Dark Salmon – contrast on light bg */
 
   /* Brand */
   --color-brand:      13 115 119; /* #0D7377 | Blueprint Teal – primary action / brand accent */
@@ -58,6 +58,7 @@
     --color-textMid:    190 182 178;
     --color-textLight:  241 235 231;
     --color-textAccent: 100 180 130;
+    --color-textContrast: 255 105 105;  /* #FF6969 | Light Salmon – on dark bg */
 
     --color-brand:       20 160 165;
     --color-danger:     210 60 80;
@@ -90,6 +91,7 @@
   --color-textMid:    190 182 178;
   --color-textLight:  241 235 231;
   --color-textAccent: 100 180 130;
+  --color-textContrast: 255 105 105;  /* #FF6969 | Light Salmon – on dark bg */
 
   --color-brand:       20 160 165;
   --color-danger:     210 60 80;
@@ -121,6 +123,7 @@
   --color-textMid:    106 97 92;
   --color-textLight:  241 235 231;
   --color-textAccent:  70 145 98;
+  --color-textContrast: 180 55 55;  /* #B43737 | Dark Salmon – contrast on light bg */
 
   --color-brand:       13 115 119;
   --color-danger:     128 0 32;
