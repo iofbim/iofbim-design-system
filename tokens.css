@@ -5,8 +5,10 @@
   --color-accent:    206 206 206; /* #CECECE | Pale Silver – cool, light gray accent for borders or subtle highlights */
   --color-highlight: 182 169 162; /* #B6A9A2 | Taupe Mist – light taupe with soft pink-brown undertones */
 
-  --color-textDark:  63 59 54;    /* #3F3B36 | Charcoal Brown – deep earthy gray for main text */
+  --color-textDark:   63 59 54;    /* #3F3B36 | Charcoal Brown – deep earthy gray for main text */
   --color-textMid:   106 97 92;   /* #6A615C | Stone Gray – mid-tone neutral, suitable for secondary text */
+  --color-textSubtle: 138 130 126; /* #8A827E | Warm Taupe – helper / description text (~gray-500) */
+  --color-textMuted:  178 171 166; /* #B2ABA6 | Warm Silver – placeholder / hint / disabled (~gray-400) */
   --color-textLight: 241 235 231; /* #F1EBE7 | Ivory Mist – off-white with a warm tint for light-on-dark use */
   --color-textAccent:   13 115 119; /* #0D7377 | Blueprint Teal – aligned with brand accent */
   --color-textContrast: 180 55 55;  /* #B43737 | Dark Salmon – contrast on light bg */
@@ -23,6 +25,10 @@
   /* Surfaces */
   --color-surface:    255 255 255; /* #FFFFFF | Panel / dialog background */
   --color-surfaceMid: 245 244 242; /* #F5F4F2 | Nested / secondary surface */
+
+  /* Borders */
+  --color-border:      214 210 206; /* #D6D2CE | Warm Light Stroke – default border/divider on light bg */
+  --color-borderStrong: 182 176 170; /* #B6B0AA | Warm Mid Stroke – stronger border e.g. active panel edge */
 
   /* IDS domain semantic colors (ISO cardinality concepts) */
   --color-ids-required:   180 110 20;  /* amber    – required facet */
@@ -56,6 +62,8 @@
 
     --color-textDark:   241 235 231; /* inverted – now the "dark" var holds light text */
     --color-textMid:    190 182 178;
+    --color-textSubtle: 158 151 147; /* #9E9793 | Warm Mid-Gray – helper text on dark bg */
+    --color-textMuted:  112 106 102; /* #706A66 | Muted Warm Gray – placeholder on dark bg */
     --color-textLight:  241 235 231;
     --color-textAccent: 20 160 165;
     --color-textContrast: 255 105 105;  /* #FF6969 | Light Salmon – on dark bg */
@@ -68,6 +76,9 @@
 
     --color-surface:     40 38 36;
     --color-surfaceMid:  50 48 46;
+
+    --color-border:       65 60 57; /* Warm Dark Stroke – default border on dark bg */
+    --color-borderStrong: 90 84 80; /* Warm Dark Strong Stroke */
 
     --color-ids-required:   220 150 40;
     --color-ids-optional:    20 160 165;
@@ -89,6 +100,8 @@
 
   --color-textDark:   241 235 231;
   --color-textMid:    190 182 178;
+  --color-textSubtle: 158 151 147;
+  --color-textMuted:  112 106 102;
   --color-textLight:  241 235 231;
   --color-textAccent: 20 160 165;
   --color-textContrast: 255 105 105;  /* #FF6969 | Light Salmon – on dark bg */
@@ -101,6 +114,9 @@
 
   --color-surface:     40 38 36;
   --color-surfaceMid:  50 48 46;
+
+  --color-border:       65 60 57;
+  --color-borderStrong: 90 84 80;
 
   --color-ids-required:   220 150 40;
   --color-ids-optional:    20 160 165;
@@ -121,6 +137,8 @@
 
   --color-textDark:    63 59 54;
   --color-textMid:    106 97 92;
+  --color-textSubtle: 138 130 126;
+  --color-textMuted:  178 171 166;
   --color-textLight:  241 235 231;
   --color-textAccent:  13 115 119;
   --color-textContrast: 180 55 55;  /* #B43737 | Dark Salmon – contrast on light bg */
@@ -133,6 +151,9 @@
 
   --color-surface:    255 255 255;
   --color-surfaceMid: 245 244 242;
+
+  --color-border:      214 210 206;
+  --color-borderStrong: 182 176 170;
 
   --color-ids-required:   180 110 20;
   --color-ids-optional:    13 115 119;
@@ -166,7 +187,7 @@
 /* Surface panels */
 .ds-panel {
   background-color: rgb(var(--color-surface));
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgb(var(--color-border));
   border-radius: var(--radius-xl);
   box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.05);
 }
@@ -201,7 +222,7 @@
 .ds-btn--secondary {
   background-color: rgb(var(--color-surface) / 0.85);
   color: rgb(var(--color-textDark));
-  border: 1px solid rgba(0,0,0,0.12);
+  border: 1px solid rgb(var(--color-border));
 }
 .ds-btn--accent {
   background-color: rgb(var(--color-brand));
@@ -216,7 +237,7 @@
 .ds-btn--ghost {
   background-color: transparent;
   color: rgb(var(--color-textDark));
-  border: 1px solid rgba(255,255,255,0.15);
+  border: 1px solid rgb(var(--color-border));
 }
 /* Button sizes */
 .ds-btn--sm { padding: 0.375rem 0.5rem;  border-radius: 0.5rem;  font-size: 0.8125rem; }
@@ -233,7 +254,7 @@
   display: block;
   width: 100%;
   background-color: rgb(var(--color-surface));
-  border: 1px solid rgba(0,0,0,0.18);
+  border: 1px solid rgb(var(--color-borderStrong));
   border-radius: 0.5rem;
   padding: 0.375rem 0.625rem;
   font-size: 0.75rem;
@@ -250,13 +271,13 @@
 
 /* Facet containers (IDS domain) */
 .ds-facet {
-  border: 1px solid rgba(0,0,0,0.12);
+  border: 1px solid rgb(var(--color-border));
   border-radius: 12px;
   padding: 8px;
   background-color: rgb(var(--color-surfaceMid));
 }
 .ds-facet--group {
-  border: 1px solid rgba(0,0,0,0.08);
+  border: 1px solid rgb(var(--color-border) / 0.6);
   border-radius: 10px;
   overflow: hidden;
   background-color: rgb(var(--color-surfaceMid));

@@ -11,6 +11,8 @@ module.exports = {
 
         textDark:     'rgb(var(--color-textDark) / <alpha-value>)',
         textMid:      'rgb(var(--color-textMid) / <alpha-value>)',
+        textSubtle:   'rgb(var(--color-textSubtle) / <alpha-value>)',
+        textMuted:    'rgb(var(--color-textMuted) / <alpha-value>)',
         textLight:    'rgb(var(--color-textLight) / <alpha-value>)',
         textAccent:   'rgb(var(--color-textAccent) / <alpha-value>)',
         textContrast: 'rgb(var(--color-textContrast) / <alpha-value>)',
@@ -23,6 +25,9 @@ module.exports = {
 
         surface:    'rgb(var(--color-surface) / <alpha-value>)',
         surfaceMid: 'rgb(var(--color-surfaceMid) / <alpha-value>)',
+
+        border:       'rgb(var(--color-border) / <alpha-value>)',
+        borderStrong: 'rgb(var(--color-borderStrong) / <alpha-value>)',
 
         idsRequired:   'rgb(var(--color-ids-required) / <alpha-value>)',
         idsOptional:   'rgb(var(--color-ids-optional) / <alpha-value>)',
@@ -37,6 +42,12 @@ module.exports = {
         sans:  ['var(--font-sans)',  "ui-sans-serif", "system-ui", "sans-serif"],
         sans2: ['var(--font-sans2)', "ui-sans-serif", "system-ui", "sans-serif"],
         serif: ['var(--font-serif)']
+      },
+      borderColor: {
+        DEFAULT: 'rgb(var(--color-border))',
+      },
+      divideColor: {
+        DEFAULT: 'rgb(var(--color-border))',
       },
       borderRadius: {
         xl:   'var(--radius-xl)',
