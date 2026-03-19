@@ -1,11 +1,11 @@
 "use client";
 import * as React from "react";
 
-export type Theme = "light" | "dark" | "dark-hc" | "system";
+export type Theme = "light" | "dark" | "system";
 
 interface ThemeContextValue {
   theme: Theme;
-  resolvedTheme: "light" | "dark" | "dark-hc";
+  resolvedTheme: "light" | "dark";
   setTheme: (theme: Theme) => void;
 }
 
@@ -23,12 +23,12 @@ export function ThemeProvider({
   storageKey?: string;
 }) {
   const [theme, setThemeState] = React.useState<Theme>("system");
-  const [resolvedTheme, setResolvedTheme] = React.useState<"light" | "dark" | "dark-hc">("light");
+  const [resolvedTheme, setResolvedTheme] = React.useState<"light" | "dark">("light");
 
   // On mount: restore persisted preference
   React.useEffect(() => {
     const stored = localStorage.getItem(storageKey) as Theme | null;
-    if (stored === "light" || stored === "dark" || stored === "dark-hc" || stored === "system") {
+    if (stored === "light" || stored === "dark" || stored === "system") {
       setThemeState(stored);
     }
   }, [storageKey]);
@@ -43,9 +43,6 @@ export function ThemeProvider({
       if (t === "dark") {
         root.setAttribute("data-theme", "dark");
         setResolvedTheme("dark");
-      } else if (t === "dark-hc") {
-        root.setAttribute("data-theme", "dark-hc");
-        setResolvedTheme("dark-hc");
       } else if (t === "light") {
         root.setAttribute("data-theme", "light");
         setResolvedTheme("light");

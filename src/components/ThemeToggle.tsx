@@ -2,24 +2,21 @@
 import { useTheme, type Theme } from "./ThemeProvider";
 
 const icons: Record<Theme, string> = {
-  system:  "☾",
-  dark:    "☀",
-  "dark-hc": "◈",
-  light:   "◑",
+  system: "☾",
+  dark:   "☀",
+  light:  "◑",
 };
 
 const labels: Record<Theme, string> = {
-  system:  "Auto (system)",
-  dark:    "Dark mode",
-  "dark-hc": "High contrast",
-  light:   "Light mode",
+  system: "Auto (system)",
+  dark:   "Dark mode",
+  light:  "Light mode",
 };
 
 const next: Record<Theme, Theme> = {
-  system:  "dark",
-  dark:    "dark-hc",
-  "dark-hc": "light",
-  light:   "system",
+  system: "dark",
+  dark:   "light",
+  light:  "system",
 };
 
 export function ThemeToggle({ className = "" }: { className?: string }) {

@@ -127,41 +127,6 @@
 }
 
 /* ==============================
-   Dark High Contrast – explicit user opt-in
-   Same dark background, brand-teal text, max-contrast status colors
-   ============================== */
-[data-theme="dark-hc"] {
-  --color-customBg:    28 26 24;   /* identical to dark – not harsh */
-  --color-prim:       110 106 102;
-  --color-accent:      35 85 90;   /* teal-tinted border/surface edge */
-  --color-highlight:   20 120 125; /* teal-tinted highlight */
-
-  --color-textDark:   190 245 248; /* very light cyan – high-contrast main text */
-  --color-textMid:    120 210 215; /* mid teal – secondary text */
-  --color-textLight:  241 235 231;
-  --color-textAccent:  20 220 230; /* bright teal */
-  --color-textContrast: 255 215 0; /* gold/yellow – callout contrast */
-
-  --color-brand:       20 200 210; /* boosted teal */
-
-  --color-danger:     255 75 75;   /* saturated red */
-  --color-success:     50 255 150; /* saturated green */
-  --color-warning:    255 210 0;   /* saturated yellow */
-  --color-info:        20 220 230; /* saturated cyan */
-
-  --color-surface:     40 38 36;
-  --color-surfaceMid:  50 48 46;
-
-  --color-ids-required:   255 210 0;   /* yellow */
-  --color-ids-optional:    20 220 230; /* cyan */
-  --color-ids-prohibited: 255 75 75;   /* red */
-  --color-ids-neutral:    110 106 102;
-
-  --color-ctx-doc:    100 180 255; /* bright blue */
-  --color-ctx-bsdd:   220 100 255; /* bright purple */
-}
-
-/* ==============================
    Light mode – explicit user opt-in (overrides OS dark preference)
    ============================== */
 [data-theme="light"] {
