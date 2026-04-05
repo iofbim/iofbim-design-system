@@ -40,6 +40,10 @@
   --color-ctx-doc:   59 130 246;  /* Blue   – documentation / annotation mode */
   --color-ctx-bsdd: 147 51 234;   /* Purple – bSDD linked mode */
 
+  /* CMS scheduling (construction schedule UI) */
+  --color-surfaceDeep: 222 218 215; /* #DED AD7 | Inset grid bg – deepest surface layer (Gantt timeline/grid) */
+  --color-schedule:     55 105 175; /* #3769AF | Steel Blue – default task bar; distinct from brand teal */
+
   /* Radius & spacing (optional; extend as needed) */
   --radius-xl: 1rem;
   --radius-full: 9999px;
@@ -86,6 +90,9 @@
 
     --color-ctx-doc:    96 165 250;
     --color-ctx-bsdd:  192 132 252;
+
+    --color-surfaceDeep: 17 16 14;  /* Near-black warm – deep Gantt grid bg on dark */
+    --color-schedule:    85 140 215; /* Lighter steel blue – task bars on dark bg */
   }
 }
 
@@ -124,6 +131,9 @@
 
   --color-ctx-doc:    96 165 250;
   --color-ctx-bsdd:  192 132 252;
+
+  --color-surfaceDeep: 17 16 14;
+  --color-schedule:    85 140 215;
 }
 
 /* ==============================
@@ -161,6 +171,9 @@
 
   --color-ctx-doc:    59 130 246;
   --color-ctx-bsdd:  147 51 234;
+
+  --color-surfaceDeep: 222 218 215;
+  --color-schedule:     55 105 175;
 }
 
 /* Shrink typography on small screens without Tailwind plugin
