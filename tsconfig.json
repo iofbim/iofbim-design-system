@@ -15,11 +15,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "declaration": true,
-    "baseUrl": ".",
-    "paths": {
-      "*": ["../../node_modules/*", "node_modules/*"]
-    }
+    "declaration": true
   },
   "include": ["src"]
 }
