@@ -27,6 +27,7 @@ HTML Usage
     <a href="/#IOB" class="ds-nav-item">I of BIM</a>
     <a href="/#WhatWeCanDo" class="ds-nav-item">What we can do</a>
     <a href="/#ProjectsSection" class="ds-nav-item">Projects</a>
+    <a href="/#AboutSection" class="ds-nav-item">About</a>
     <a href="/#ContactSection" class="ds-nav-item">Contact</a>
   </nav>
   <nav class="ds-topnav__group" aria-label="Tools" style="margin: 0 .5rem">
@@ -56,7 +57,7 @@ import "design-system/iofbim-design-system/tokens.css";
   className="ds-topnav--floating"
   lang="en"
   onToggleLang={() => setLang(prev => prev === "en" ? "tr" : "en")}
-  links={{ iofbim: "/#IOB", whatWeCanDo: "/#WhatWeCanDo", projects: "/#ProjectsSection", contact: "/#ContactSection" }}
+  links={{ iofbim: "/#IOB", whatWeCanDo: "/#WhatWeCanDo", projects: "/#ProjectsSection", about: "/#AboutSection", contact: "/#ContactSection" }}
   tools={{ ifcSchema: "/tools/IFC_schema", bep: "/tools/bep", ids: "/tools/ids" }}
 />;
 

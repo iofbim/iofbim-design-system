@@ -11,6 +11,7 @@ export interface TopNavProps {
         iofbim?: string;
         whatWeCanDo?: string;
         projects?: string;
+        about?: string;
         contact?: string;
     };
     tools?: {
@@ -22,6 +23,7 @@ export interface TopNavProps {
         iofbim?: string;
         whatWeCanDo?: string;
         projects?: string;
+        about?: string;
         contact?: string;
         tools?: string; // Top-level tools label
         ifcSchema?: string;
@@ -41,6 +43,7 @@ const defaultLabels = {
         iofbim: "I of BIM",
         whatWeCanDo: "What we can do",
         projects: "Projects",
+        about: "About",
         contact: "Contact",
         tools: "I of BIM Tools",
         toolsSm: "IoB Tools",
@@ -55,6 +58,7 @@ const defaultLabels = {
         iofbim: "I of BIM",
         whatWeCanDo: "Neler yapabiliriz",
         projects: "Projeler",
+        about: "Hakkımda",
         contact: "İletişim",
         tools: "I of BIM Araçları",
         toolsSm: "IoB Araçları",
@@ -92,6 +96,7 @@ export function TopNav({
                 </a>
                 <a href={links?.whatWeCanDo ?? "/#WhatWeCanDo"} className="ds-nav-item ds-md-up">{t.whatWeCanDo}</a>
                 <a href={links?.projects ?? "/#ProjectsSection"} className="ds-nav-item ds-md-up">{t.projects}</a>
+                <a href={links?.about ?? "/#AboutSection"} className="ds-nav-item ds-md-up">{t.about}</a>
                 <a href={links?.contact ?? "/#ContactSection"} className="ds-nav-item ds-md-up">{t.contact}</a>
             </nav>
 
