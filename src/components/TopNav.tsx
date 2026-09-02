@@ -18,6 +18,7 @@ export interface TopNavProps {
         ifcSchema?: string;
         bep?: string;
         ids?: string;
+        ifcGraph?: string;
     };
     labels?: {
         iofbim?: string;
@@ -29,6 +30,7 @@ export interface TopNavProps {
         ifcSchema?: string;
         bep?: string;
         ids?: string;
+        ifcGraph?: string;
         en?: string; // language code label
         tr?: string; // language code label
         divider?: string; // between language codes, default "|"
@@ -50,6 +52,7 @@ const defaultLabels = {
         ifcSchema: "IFC Schema",
         bep: "BEP Authoring Tool",
         ids: "IDS Authoring Tool",
+        ifcGraph: "IFC Graph",
         en: "EN",
         tr: "TR",
         divider: "|",
@@ -65,6 +68,7 @@ const defaultLabels = {
         ifcSchema: "IFC Şeması",
         bep: "BEP Oluşturma Aracı",
         ids: "IDS Oluşturma Aracı",
+        ifcGraph: "IFC Grafiği",
         en: "EN",
         tr: "TR",
         divider: "|",
@@ -109,6 +113,7 @@ export function TopNav({
                         <a role="menuitem" href={tools?.ifcSchema ?? "/tools/IFC_schema"}>{t.ifcSchema}</a>
                         <a role="menuitem" href={tools?.bep ?? "/tools/bep"}>{t.bep}</a>
                         <a role="menuitem" href={tools?.ids ?? "/tools/ids"}>{t.ids}</a>
+                        <a role="menuitem" href={tools?.ifcGraph ?? "/tools/ifcGraph"}>{t.ifcGraph}</a>
                     </div>
                 </div>
             </nav>

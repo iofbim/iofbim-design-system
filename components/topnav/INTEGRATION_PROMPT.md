@@ -9,7 +9,7 @@ Requirements:
 - Use the `ds-topnav-size-md` size class (or `size="md"` for React) to standardize height and font size.
 - Add `ds-topnav--floating` to match the floating look (fixed with a small top offset on desktop, sticky on small screens). Omit it if the header should be flush with the top edge.
 - The tools label must be exactly: "IofBIM Tools".
-- Keep the same links: `/#IOB`, `/#WhatWeCanDo`, `/#ProjectsSection`, `/#AboutSection`, `/#ContactSection`, `/tools/IFC_schema`, `/tools/bep`, `/tools/ids`.
+- Keep the same links: `/#IOB`, `/#WhatWeCanDo`, `/#ProjectsSection`, `/#AboutSection`, `/#ContactSection`, `/tools/IFC_schema`, `/tools/bep`, `/tools/ids`, `/tools/ifcGraph`.
 - Include an EN | TR language pill; in React, wire it to the app’s language toggle if available.
 
 If the project is plain HTML:
@@ -35,7 +35,7 @@ If your site/app is deployed under a subpath (base path), make sure links and im
   <TopNav
     size="md"
     className="ds-topnav--floating"
-    tools={{ ifcSchema: `${bp}/tools/IFC_schema`, bep: `${bp}/tools/bep`, ids: `${bp}/tools/ids` }}
+    tools={{ ifcSchema: `${bp}/tools/IFC_schema`, bep: `${bp}/tools/bep`, ids: `${bp}/tools/ids`, ifcGraph: `${bp}/tools/ifcGraph` }}
     // If you also link to on‑page anchors that live on the root page, ensure they resolve correctly
     links={{ iofbim: `${bp}/#IOB`, whatWeCanDo: `${bp}/#WhatWeCanDo`, projects: `${bp}/#ProjectsSection`, about: `${bp}/#AboutSection`, contact: `${bp}/#ContactSection` }}
   />
