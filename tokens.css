@@ -462,6 +462,12 @@
      Positions measured with getBoundingClientRect() are screen px; divide by
      --ds-zoom to get the body's CSS px.
 
+   .ds-density-compact-page
+     The same density for a single page of an app whose <html> is shared
+     with other pages (e.g. one tool inside the website): put the class on
+     any element the page renders. It is picked up with :has(), so it works
+     from server-rendered HTML without a flash at 100%.
+
    .ds-corners-quiet
      Flatter corners: 8px panels (--radius-xl, also Tailwind `rounded-xl`) and
      6px buttons, fields and facet rows. TopNav shapes are unchanged.
@@ -470,18 +476,22 @@
   --ds-zoom: 1;
 }
 @media (min-width: 1024px) {
-  .ds-density-compact {
+  .ds-density-compact,
+  :root:has(.ds-density-compact-page) {
     --ds-zoom: 0.75;
   }
-  .ds-density-compact body {
+  .ds-density-compact body,
+  :root:has(.ds-density-compact-page) body {
     zoom: var(--ds-zoom);
   }
-  .ds-density-compact .ds-topnav {
+  .ds-density-compact .ds-topnav,
+  :root:has(.ds-density-compact-page) .ds-topnav {
     zoom: calc(1 / var(--ds-zoom));
   }
 }
 @media print {
-  .ds-density-compact body {
+  .ds-density-compact body,
+  :root:has(.ds-density-compact-page) body {
     zoom: 1;
   }
 }

@@ -44,6 +44,7 @@ Tool apps that want the compact desktop look add classes on `<html>`:
 ```
 
 - `ds-density-compact` renders the app at 75% from 1024px up (CSS `zoom` on `body`); phones stay at 100%. The site TopNav keeps its full size, so it is identical across apps. `--ds-zoom` holds the factor: `100vh`/`100dvh` are not zoomed, so viewport-height layouts use e.g. `h-[calc(100dvh/var(--ds-zoom))]`, and screen-pixel measurements divide by it.
+- `ds-density-compact-page` does the same for one page when `<html>` is shared with other pages (e.g. a tool inside the website): put it on any element that page renders; it is detected with `:has()` from server-rendered HTML, so there is no flash at 100%.
 - `ds-corners-quiet` gives 8px panels (`--radius-xl`, i.e. `.ds-panel` and Tailwind `rounded-xl`) and 6px buttons, fields and facet rows. Use Tailwind `rounded-md` (6px) for rows and small controls in app code.
 
 Do not re-implement these per app; add options here instead.
