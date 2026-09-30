@@ -29,4 +29,5 @@ Expose a Tailwind preset plus CSS tokens/utilities used by apps in this monorepo
 - If adding tokens, update both `tokens.css` and `tailwind-preset/index.cjs` to keep Tailwind utilities in sync.
 - Keep utilities lightweight and framework-agnostic.
 - Avoid adding opinionated global CSS; prefer opt-in utilities like `.ds-root`.
+- App density and corner styles are shared opt-ins (`.ds-density-compact`, `.ds-corners-quiet`, `--ds-zoom`); apps must not copy them locally.
 

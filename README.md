@@ -35,6 +35,19 @@ export default ({ children }: { children: React.ReactNode }) => (
   - Defines color tokens (RGB triplets for alpha support), font variables, radius/spacing tokens.
   - Provides small, framework-agnostic utility classes: buttons, chips, panels, gradients, masks, nav items, and `.ds-root` for default background/text/font.
 
+## Opt-in density and corners
+
+Tool apps that want the compact desktop look add classes on `<html>`:
+
+```tsx
+<html className="ds-density-compact ds-corners-quiet …">
+```
+
+- `ds-density-compact` renders the app at 75% from 1024px up (CSS `zoom` on `body`); phones stay at 100%. The site TopNav keeps its full size, so it is identical across apps. `--ds-zoom` holds the factor: `100vh`/`100dvh` are not zoomed, so viewport-height layouts use e.g. `h-[calc(100dvh/var(--ds-zoom))]`, and screen-pixel measurements divide by it.
+- `ds-corners-quiet` gives 8px panels (`--radius-xl`, i.e. `.ds-panel` and Tailwind `rounded-xl`) and 6px buttons, fields and facet rows. Use Tailwind `rounded-md` (6px) for rows and small controls in app code.
+
+Do not re-implement these per app; add options here instead.
+
 ## Quick start (in a Next.js + Tailwind app)
 
 1) Install or link the package

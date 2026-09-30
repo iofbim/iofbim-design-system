@@ -449,3 +449,54 @@
 .ds-text-white { color: #ffffff; }
 .ds-bold { font-weight: 700; }
 .ds-divider { padding: 0 0.375rem; }
+
+/* ------------------------------------------------------------------------
+   Opt-in app density and corners (put the classes on <html>)
+
+   .ds-density-compact
+     From 1024px up the app renders at 75%, like a browser zoom of 75%, via
+     CSS `zoom` on <body>. Phones stay at 100%. The site TopNav is zoomed
+     back to full size, so it looks the same on the website and in every app.
+     --ds-zoom holds the current factor: 100vh / 100dvh are NOT zoomed, so
+     viewport-height sizes divide by it, e.g. h-[calc(100dvh/var(--ds-zoom))].
+     Positions measured with getBoundingClientRect() are screen px; divide by
+     --ds-zoom to get the body's CSS px.
+
+   .ds-corners-quiet
+     Flatter corners: 8px panels (--radius-xl, also Tailwind `rounded-xl`) and
+     6px buttons, fields and facet rows. TopNav shapes are unchanged.
+   ------------------------------------------------------------------------ */
+:root {
+  --ds-zoom: 1;
+}
+@media (min-width: 1024px) {
+  .ds-density-compact {
+    --ds-zoom: 0.75;
+  }
+  .ds-density-compact body {
+    zoom: var(--ds-zoom);
+  }
+  .ds-density-compact .ds-topnav {
+    zoom: calc(1 / var(--ds-zoom));
+  }
+}
+@media print {
+  .ds-density-compact body {
+    zoom: 1;
+  }
+}
+
+.ds-corners-quiet {
+  --radius-xl: 8px;
+}
+.ds-corners-quiet .ds-btn,
+.ds-corners-quiet .ds-btn--sm,
+.ds-corners-quiet .ds-btn--md,
+.ds-corners-quiet .ds-btn--lg,
+.ds-corners-quiet .ds-input,
+.ds-corners-quiet .ds-input--sm,
+.ds-corners-quiet .ds-input--md,
+.ds-corners-quiet .ds-input--lg,
+.ds-corners-quiet .ds-facet {
+  border-radius: 6px;
+}
