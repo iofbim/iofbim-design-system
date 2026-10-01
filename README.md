@@ -49,6 +49,47 @@ Tool apps that want the compact desktop look add classes on `<html>`:
 
 Do not re-implement these per app; add options here instead.
 
+## Tool app shell
+
+Every IofBIM tool (IDS, LOIN, IFC Schema, …) uses the same frame so they look alike: same width, same place under the floating TopNav, same bar height and footer. The page never scrolls; panels scroll on their own.
+
+```tsx
+<TopNav size="md" className="ds-topnav--floating" … />
+<div className="ds-app">
+  <header className="ds-app__bar">
+    <span className="ds-app__title">Project name</span>
+    <nav>
+      <a className="ds-app__tab" aria-current="page">Requirements</a>
+      <a className="ds-app__tab">Export</a>
+    </nav>
+    <div className="ml-auto">…actions…</div>
+  </header>
+  <main className="ds-app__main">
+    <div className="h-full overflow-y-auto ds-scroll-quiet">…</div>
+  </main>
+  <footer className="ds-app__footer">
+    <span>Notices…</span>
+    <span className="ds-app__version">Version 1.2.0</span>
+  </footer>
+</div>
+```
+
+- `ds-app`: one viewport under the TopNav (`--ds-topnav-bottom`, default 59px on screen, plus 1rem), up to 96rem wide (Tailwind `screen-2xl`) with 1.5rem side padding, 0.75rem gaps. Pages that render it use a 16px root font. Below 640px the TopNav is in the flow and the page scrolls normally.
+- `ds-app__bar`: the 3.5rem top bar panel; `ds-app__title` for the document/project name; `ds-app__tab` for tabs (active: `aria-current="page"` or `aria-selected="true"`).
+- `ds-app__main`: fills the height between bar and footer (`min-height: 0`); put `ds-scroll-quiet` + `overflow-y-auto` on what should scroll.
+- `ds-app__footer`: one line at the bottom; `ds-app__version` is the reserved, right-aligned version slot.
+- `ds-scroll-quiet`: scrolls by wheel, trackpad, touch and keyboard without a visible scrollbar.
+
+## Dropdowns (no native popups)
+
+Every app uses one dropdown look, never the browser's or the OS's popup:
+
+- `Select` — drop-in for `<select>`: `<option>`/`<optgroup>` children, `value`/`defaultValue`, `onChange(e)` reading `e.target.value`. Opens a `.ds-menu` list (keyboard, type-ahead). `bare` drops the `ds-input` field look for pills and chips styled by the caller. Setting the button's `value` and firing `change` picks an option, so tests and automation work as with a native select.
+- `Combobox` — replaces `<input list>` + `<datalist>`: a text field (`value`, `onValueChange`, `options`) with suggestions in the same list.
+- `.ds-menu` / `.ds-menu__item` / `.ds-menu__group` — use these classes for any other popup menu (row "⋯" menus, filter popovers) so they match.
+
+Lists are as wide as their longest option (up to the window; long options wrap) and at most 320px tall, scrolling without a scrollbar.
+
 ## Quick start (in a Next.js + Tailwind app)
 
 1) Install or link the package
