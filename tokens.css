@@ -390,9 +390,10 @@
 
 /* Simple dropdown pattern */
 .ds-dropdown { position: relative; }
+/* Anchored to the button's right edge so it opens leftwards; items stay on one line */
 .ds-topnav__dropdown {
   position: absolute;
-  left: 0;
+  right: 0;
   top: calc(100% + 6px);
   min-width: 150px;
   padding: 4px;
@@ -426,6 +427,7 @@
 }
 .ds-topnav__dropdown a {
   display: block;
+  white-space: nowrap;
   padding: 0.5rem 0.75rem;
   border-radius: 0.5rem;
   color: rgb(var(--color-textMid));
