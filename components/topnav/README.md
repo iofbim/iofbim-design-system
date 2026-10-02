@@ -37,6 +37,7 @@ HTML Usage
         <a role="menuitem" href="/tools/IFC_schema">IFC Schema</a>
         <a role="menuitem" href="/tools/bep">BEP Authoring Tool</a>
         <a role="menuitem" href="/tools/ids">IDS Authoring Tool</a>
+        <a role="menuitem" href="/tools/loin">L.O.I.N Authoring Tool</a>
         <a role="menuitem" href="/tools/ifcGraph">IFC Graph</a>
       </div>
     </div>
@@ -59,7 +60,7 @@ import "design-system/iofbim-design-system/tokens.css";
   lang="en"
   onToggleLang={() => setLang(prev => prev === "en" ? "tr" : "en")}
   links={{ iofbim: "/#IOB", whatWeCanDo: "/#WhatWeCanDo", projects: "/#ProjectsSection", about: "/#AboutSection", contact: "/#ContactSection" }}
-  tools={{ ifcSchema: "/tools/IFC_schema", bep: "/tools/bep", ids: "/tools/ids", ifcGraph: "/tools/ifcGraph" }}
+  tools={{ ifcSchema: "/tools/IFC_schema", bep: "/tools/bep", ids: "/tools/ids", loin: "/tools/loin", ifcGraph: "/tools/ifcGraph" }}
 />;
 
 Consistency Notes
