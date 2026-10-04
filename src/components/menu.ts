@@ -13,6 +13,8 @@ export function useMenuPlacement(
     list: React.RefObject<HTMLElement | null>,
     open: boolean,
     onClose: () => void,
+    /** "right": the list's right edge lines up with the anchor's, so a wide list grows leftwards */
+    align: "left" | "right" = "left",
 ): MenuPlacement | null {
     const [place, setPlace] = React.useState<MenuPlacement | null>(null);
     const close = React.useRef(onClose);
@@ -53,13 +55,16 @@ export function useMenuPlacement(
         };
     }, [open, measure, anchor, list]);
 
-    // The list is as wide as its content (up to the window); shift it left when it would run off the right edge
+    // The list is as wide as its content (up to the window); right-aligned lists line up with the
+    // anchor's right edge; any list is shifted back inside the window when it would run off it
     React.useLayoutEffect(() => {
         const el = list.current;
         const a = anchor.current;
         if (!open || !place || !el || !a) return;
+        const ar = a.getBoundingClientRect();
+        const scale = a.offsetHeight ? ar.height / a.offsetHeight : 1;
+        if (align === "right") el.style.left = `${Math.max(8, ar.right - el.getBoundingClientRect().width) / scale}px`;
         const r = el.getBoundingClientRect();
-        const scale = a.offsetHeight ? a.getBoundingClientRect().height / a.offsetHeight : 1;
         const overflow = r.right - (window.innerWidth - 8);
         if (overflow > 0) el.style.left = `${Math.max(8, r.left - overflow) / scale}px`;
     });

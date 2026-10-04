@@ -839,3 +839,41 @@
 }
 .ds-menu__label { flex: 1 1 auto; min-width: 0; }
 .ds-menu__detail { flex-shrink: 0; font-size: 0.6875rem; color: rgb(var(--color-textSubtle)); }
+/* Headings above groups (Combobox `section`) */
+.ds-menu__section {
+  padding: 0.625rem 0.625rem 0.125rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: rgb(var(--color-textDark));
+}
+.ds-menu__section:not(:first-child) { border-top: 1px solid rgb(var(--color-border)); margin-top: 0.25rem; }
+/* In the several-values Combobox a group heading ticks the group */
+.ds-menu__group--toggle { cursor: pointer; }
+.ds-menu__group--toggle:hover { color: rgb(var(--color-textAccent)); }
+/* Tick column of checkbox items (MultiSelect, several-values Combobox, Menu toggles) */
+.ds-menu__check { flex-shrink: 0; width: 1em; text-align: center; font-weight: 700; color: rgb(var(--color-textAccent)); }
+.ds-menu__separator { height: 1px; margin: 0.25rem 0.375rem; background-color: rgb(var(--color-border)); list-style: none; }
+.ds-menu__action--danger { color: rgb(var(--color-danger)); }
+.ds-menu__create, .ds-multiselect__create { color: rgb(var(--color-textAccent)); font-weight: 600; }
+.ds-menu--mono .ds-menu__label, .ds-input--mono { font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace); }
+/* Menu's default trigger: a small ghost button ("⋯") */
+.ds-menu-trigger {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.5rem;
+  padding: 0.125rem 0.375rem;
+  border: 0;
+  border-radius: 0.375rem;
+  background: none;
+  color: rgb(var(--color-textSubtle));
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+}
+.ds-menu-trigger:hover, .ds-menu-trigger[aria-expanded="true"] { background-color: rgb(var(--color-surfaceMid)); color: rgb(var(--color-textDark)); }
+.ds-menu-trigger:focus-visible { outline: 2px solid rgb(var(--color-textAccent)); outline-offset: 1px; }
+/* MultiSelect: an optional search field above the checkbox list */
+.ds-multiselect { display: flex; flex-direction: column; gap: 0.25rem; }
+.ds-multiselect__search { width: 100%; box-sizing: border-box; }
+.ds-multiselect__list { margin: 0; padding: 0; list-style: none; }
+.ds-select__placeholder { color: rgb(var(--color-textMuted)); }
