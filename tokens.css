@@ -548,6 +548,25 @@
 :root:has(.ds-app):has(.ds-topnav) {
   --ds-topnav-bottom: 59px;
 }
+/* "Skip to content" (WCAG 2.4.1): the first link on the page, shown only while focused.
+   <a className="ds-skip-link" href="#main">Skip to content</a> … <main id="main" tabIndex={-1}> */
+.ds-skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.75rem;
+  z-index: 1000;
+  padding: 0.5rem 0.75rem;
+  border: 2px solid rgb(var(--color-textAccent));
+  border-radius: 0.5rem;
+  background-color: rgb(var(--color-surface));
+  color: rgb(var(--color-textDark));
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+.ds-skip-link:focus { transform: none; outline: none; }
+:target:focus { outline: none; }
+
 .ds-app {
   box-sizing: border-box;
   display: flex;
