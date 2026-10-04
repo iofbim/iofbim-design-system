@@ -2,9 +2,9 @@
 // Compact navigation for the tool apps, inside the app's own bar (.ds-app__bar) instead of the
 // website's TopNav:
 //   <AppNav current="ids" />       "I of BIM › IDS ▾"  home link + a switcher listing every tool
-//   <AppSettings … />              size slider · theme · EN | TR
-// The size slider scales the desktop density (`--ds-scale`, 100% = the usual 75% zoom) and is
-// remembered in the browser for every tool on the site (`iofbim.uiScale`).
+//   <AppSettings … />              interface size · theme · EN | TR
+// The size (a list of steps, or any typed value) scales the desktop density (`--ds-scale`,
+// 100% = unzoomed) and is remembered in the browser for every tool on the site (`iofbim.uiScale`).
 import * as React from "react";
 import { createPortal } from "react-dom";
 import { ThemeToggle } from "./ThemeToggle";
@@ -27,10 +27,9 @@ const LABELS = {
         home: "I of BIM",
         homeTitle: "I of BIM: home page",
         switchTitle: "Other I of BIM tools",
-        current: "you are here",
+        typeHint: "Click the number again to type a size",
         short: { ifcSchema: "IFC Schema", bep: "BEP", ids: "IDS", loin: "L.O.I.N", ifcGraph: "IFC Graph" },
         long: { ifcSchema: "IFC Schema", bep: "BEP Authoring Tool", ids: "IDS Authoring Tool", loin: "L.O.I.N Authoring Tool", ifcGraph: "IFC Graph" },
-        size: "Size",
         sizeTitle: "Interface size",
         language: "Language",
     },
@@ -38,10 +37,9 @@ const LABELS = {
         home: "I of BIM",
         homeTitle: "I of BIM: ana sayfa",
         switchTitle: "Diğer I of BIM araçları",
-        current: "buradasınız",
+        typeHint: "Bir boyut yazmak için sayıya yeniden tıklayın",
         short: { ifcSchema: "IFC Şeması", bep: "BEP", ids: "IDS", loin: "L.O.I.N", ifcGraph: "IFC Grafik" },
         long: { ifcSchema: "IFC Şeması", bep: "BEP Oluşturma Aracı", ids: "IDS Oluşturma Aracı", loin: "L.O.I.N Oluşturma Aracı", ifcGraph: "IFC Grafik Görüntüleyici" },
-        size: "Boyut",
         sizeTitle: "Arayüz boyutu",
         language: "Dil",
     },
@@ -102,7 +100,6 @@ export function AppNav({ current, lang = "en", siteUrl = "", className = "" }: A
                             {tool.id === current ? (
                                 <span role="menuitem" tabIndex={-1} aria-current="page" className="ds-menu__item ds-appnav__current">
                                     <span className="ds-menu__label">{t.long[tool.id]}</span>
-                                    <span className="ds-menu__detail">{t.current}</span>
                                 </span>
                             ) : (
                                 <a role="menuitem" tabIndex={-1} className="ds-menu__item" href={`${siteUrl}${tool.path}`}>
@@ -160,37 +157,112 @@ export type AppSettingsProps = {
     lang?: Lang;
     onToggleLang?: () => void;
     showThemeToggle?: boolean;
-    /** The size slider; it only shows where the desktop density applies */
+    /** The interface size control; it only shows where the desktop density applies */
     showScale?: boolean;
     /** EN | TR; off for apps with one language */
     showLanguage?: boolean;
     className?: string;
 };
 
-/** Size slider · theme · language, for the right end of the app bar */
-export function AppSettings({ lang = "en", onToggleLang, showThemeToggle = true, showScale = true, showLanguage = true, className = "" }: AppSettingsProps) {
+/** Typed sizes are kept within this range (percent) */
+const SCALE_MIN = 50;
+const SCALE_MAX = 200;
+
+/**
+ * The interface size: a button with the current percentage. A click lists the steps; a
+ * second click on the number turns it into a field for any size (Enter applies, Esc cancels).
+ */
+function ScaleControl({ lang }: { lang: Lang }) {
     const t = LABELS[lang];
     const [scale, setScale] = useUiScale();
-    const index = Math.max(0, UI_SCALES.findIndex((s) => Math.abs(s - scale) < 0.01));
+    const pct = Math.round(scale * 100);
+    const [open, setOpen] = React.useState(false);
+    const [editing, setEditing] = React.useState(false);
+    const [draft, setDraft] = React.useState(String(pct));
+    const anchor = React.useRef<HTMLSpanElement | null>(null);
+    const list = React.useRef<HTMLUListElement | null>(null);
+    const input = React.useRef<HTMLInputElement | null>(null);
+    const close = React.useCallback(() => { setOpen(false); setEditing(false); }, []);
+    const place = useMenuPlacement(anchor, list, open, close);
+    const menuId = React.useId();
+
+    React.useEffect(() => { if (editing) { input.current?.focus(); input.current?.select(); } }, [editing]);
+
+    const commit = () => {
+        const v = Math.round(Number(draft.replace(/[^\d.]/g, "")));
+        if (Number.isFinite(v) && v > 0) setScale(Math.min(SCALE_MAX, Math.max(SCALE_MIN, v)) / 100);
+        close();
+    };
+    const pick = (s: number) => { setScale(s); close(); };
+
+    return (
+        <span ref={anchor} className="ds-appscale" title={t.sizeTitle}>
+            {editing ? (
+                <input
+                    ref={input}
+                    className="ds-appscale__input"
+                    inputMode="numeric"
+                    aria-label={t.sizeTitle}
+                    value={draft}
+                    onChange={(e) => setDraft(e.target.value)}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") { e.preventDefault(); commit(); }
+                        else if (e.key === "Escape") { e.preventDefault(); close(); }
+                    }}
+                    onBlur={() => { if (editing) commit(); }}
+                />
+            ) : (
+                <button
+                    type="button"
+                    className="ds-appsettings__btn ds-appscale__btn"
+                    aria-haspopup="menu"
+                    aria-expanded={open}
+                    aria-controls={open ? menuId : undefined}
+                    aria-label={`${t.sizeTitle}: ${pct}%`}
+                    onClick={() => {
+                        // First click lists the steps; a click while they show opens the field
+                        if (!open) { setOpen(true); return; }
+                        setDraft(String(pct));
+                        setEditing(true);
+                    }}
+                >
+                    {pct}%
+                    <svg className="ds-select__chevron" viewBox="0 0 12 12" aria-hidden="true">
+                        <path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                </button>
+            )}
+            {open && place && typeof document !== "undefined" && createPortal(
+                <ul ref={list} id={menuId} role="menu" aria-label={t.sizeTitle} className="ds-menu ds-scroll-quiet" style={menuStyle(place)}>
+                    {UI_SCALES.map((s) => (
+                        <li key={s} role="none">
+                            <button
+                                type="button"
+                                role="menuitemradio"
+                                aria-checked={Math.abs(s - scale) < 0.001}
+                                className="ds-menu__item ds-appscale__option"
+                                onMouseDown={(e) => e.preventDefault()}
+                                onClick={() => pick(s)}
+                            >
+                                <span className="ds-menu__label">{Math.round(s * 100)}%</span>
+                            </button>
+                        </li>
+                    ))}
+                    <li role="none" className="ds-menu__hint">{t.typeHint}</li>
+                </ul>,
+                document.body,
+            )}
+        </span>
+    );
+}
+
+/** Interface size · theme · language, for the right end of the app bar */
+export function AppSettings({ lang = "en", onToggleLang, showThemeToggle = true, showScale = true, showLanguage = true, className = "" }: AppSettingsProps) {
+    const t = LABELS[lang];
     return (
         <div className={`ds-appsettings ${className}`}>
-            {showScale && (
-                <label className="ds-appscale" title={t.sizeTitle}>
-                    <span className="ds-appscale__label">{t.size}</span>
-                    <input
-                        type="range"
-                        min={0}
-                        max={UI_SCALES.length - 1}
-                        step={1}
-                        value={index}
-                        aria-label={t.sizeTitle}
-                        aria-valuetext={`${Math.round(UI_SCALES[index] * 100)}%`}
-                        onChange={(e) => setScale(UI_SCALES[Number(e.target.value)] ?? 1)}
-                    />
-                    <span className="ds-appscale__value">{Math.round(UI_SCALES[index] * 100)}%</span>
-                </label>
-            )}
-            {showThemeToggle && <ThemeToggle className="ds-appsettings__btn" />}
+            {showScale && <ScaleControl lang={lang} />}
+            {showThemeToggle && <ThemeToggle className="ds-appsettings__btn ds-appsettings__theme" />}
             {showLanguage && <div className="ds-appsettings__lang" role="group" aria-label={t.language}>
                 {(["en", "tr"] as const).map((code) => (
                     <button

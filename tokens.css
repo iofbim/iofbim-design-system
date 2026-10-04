@@ -7,10 +7,10 @@
 
   --color-textDark:   63 59 54;    /* #3F3B36 | Charcoal Brown – deep earthy gray for main text */
   --color-textMid:   106 97 92;   /* #6A615C | Stone Gray – mid-tone neutral, suitable for secondary text */
-  --color-textSubtle: 138 130 126; /* #8A827E | Warm Taupe – helper / description text (~gray-500) */
-  --color-textMuted:  178 171 166; /* #B2ABA6 | Warm Silver – placeholder / hint / disabled (~gray-400) */
+  --color-textSubtle: 106 100 96; /* #6A6460 | Warm Taupe – helper / description text (≥ 4.5:1 on every light background) */
+  --color-textMuted:  119 109 103; /* #776D67 | Warm Silver – placeholder / hint (≥ 4.5:1 on surface and surfaceMid) */
   --color-textLight: 241 235 231; /* #F1EBE7 | Ivory Mist – off-white with a warm tint for light-on-dark use */
-  --color-textAccent:   13 115 119; /* #0D7377 | Blueprint Teal – aligned with brand accent */
+  --color-textAccent:   13 113 117; /* #0D7175 | Blueprint Teal – accent text (≥ 4.5:1 on every light background) */
   --color-textContrast: 180 55 55;  /* #B43737 | Dark Salmon – contrast on light bg */
 
   /* Brand */
@@ -18,8 +18,8 @@
 
   /* Status */
   --color-danger:    128 0 32;    /* #800020 | Burgundy – destructive actions */
-  --color-success:    70 145 98;  /* #469162 | Forest Green – dones */
-  --color-warning:   180 110 20;  /* #B46E14 | Amber – caution / warning states */
+  --color-success:    54 112 76;  /* #36704C | Forest Green – dones (≥ 4.5:1 as text) */
+  --color-warning:   143 88 16;  /* #8F5810 | Amber – caution / warning states (≥ 4.5:1 as text) */
   --color-info:       13 115 119; /* #0D7377 | Blueprint Teal – informational */
 
   /* Surfaces */
@@ -67,13 +67,13 @@
     --color-textDark:   241 235 231; /* inverted – now the "dark" var holds light text */
     --color-textMid:    190 182 178;
     --color-textSubtle: 158 151 147; /* #9E9793 | Warm Mid-Gray – helper text on dark bg */
-    --color-textMuted:  112 106 102; /* #706A66 | Muted Warm Gray – placeholder on dark bg */
+    --color-textMuted:  156 151 147; /* #9C9793 | Muted Warm Gray – placeholder on dark bg (≥ 4.5:1 on every dark background) */
     --color-textLight:  241 235 231;
-    --color-textAccent: 20 160 165;
+    --color-textAccent: 21 169 174;
     --color-textContrast: 255 105 105;  /* #FF6969 | Light Salmon – on dark bg */
 
-    --color-brand:       20 160 165;
-    --color-danger:     210 60 80;
+    --color-brand:       15 118 122;
+    --color-danger:     224 120 134;
     --color-success:    100 180 130;
     --color-warning:    220 150 40;
     --color-info:        20 160 165;
@@ -108,13 +108,13 @@
   --color-textDark:   241 235 231;
   --color-textMid:    190 182 178;
   --color-textSubtle: 158 151 147;
-  --color-textMuted:  112 106 102;
+  --color-textMuted:  156 151 147;
   --color-textLight:  241 235 231;
-  --color-textAccent: 20 160 165;
+  --color-textAccent: 21 169 174;
   --color-textContrast: 255 105 105;  /* #FF6969 | Light Salmon – on dark bg */
 
-  --color-brand:       20 160 165;
-  --color-danger:     210 60 80;
+  --color-brand:       15 118 122;
+  --color-danger:     224 120 134;
   --color-success:    100 180 130;
   --color-warning:    220 150 40;
   --color-info:        20 160 165;
@@ -147,16 +147,16 @@
 
   --color-textDark:    63 59 54;
   --color-textMid:    106 97 92;
-  --color-textSubtle: 138 130 126;
-  --color-textMuted:  178 171 166;
+  --color-textSubtle: 106 100 96;
+  --color-textMuted:  119 109 103;
   --color-textLight:  241 235 231;
-  --color-textAccent:  13 115 119;
+  --color-textAccent:  13 113 117;
   --color-textContrast: 180 55 55;  /* #B43737 | Dark Salmon – contrast on light bg */
 
   --color-brand:       13 115 119;
   --color-danger:     128 0 32;
-  --color-success:     70 145 98;
-  --color-warning:    180 110 20;
+  --color-success:     54 112 76;
+  --color-warning:    143 88 16;
   --color-info:        13 115 119;
 
   --color-surface:    255 255 255;
@@ -259,8 +259,9 @@
 
 /* Chip variants */
 .ds-chip--inverse { background-color: rgb(var(--color-textDark));  color: rgb(var(--color-textLight)); }
-.ds-chip--accent  { background-color: rgb(var(--color-highlight)); color: rgb(var(--color-textLight)); }
-.ds-chip--primary { background-color: rgb(var(--color-prim));      color: rgb(var(--color-textLight)); }
+/* Tinted, with body text on top: light text on the solid colours was 1.2–2.5:1 (WCAG 1.4.3) */
+.ds-chip--accent  { background-color: rgb(var(--color-highlight) / 0.45); color: rgb(var(--color-textDark)); }
+.ds-chip--primary { background-color: rgb(var(--color-prim) / 0.35);      color: rgb(var(--color-textDark)); }
 
 /* Input / textarea / select base */
 .ds-input {
@@ -456,11 +457,11 @@
    Opt-in app density and corners (put the classes on <html>)
 
    .ds-density-compact
-     From 1024px up the app renders at 75%, like a browser zoom of 75%, via
-     CSS `zoom` on <body>. Phones stay at 100%. The site TopNav is zoomed
-     back to full size, so it looks the same on the website and in every app.
-     The interface size slider (AppSettings) scales it: --ds-scale on <html>,
-     1 = 75%, 1.25 ≈ 94%, 0.5 = 37.5% (saved per browser as iofbim.uiScale).
+     From 1024px up the app renders at the user's interface size, like a browser
+     zoom, via CSS `zoom` on <body>; the default is 100%. Phones stay at 100%. The
+     site TopNav is zoomed back to full size, so it looks the same everywhere.
+     The size comes from AppSettings: --ds-scale on <html> (1 = 100%, 0.75 = 75%, …;
+     saved per browser as iofbim.uiScale).
      --ds-zoom holds the current factor: 100vh / 100dvh are NOT zoomed, so
      viewport-height sizes divide by it, e.g. h-[calc(100dvh/var(--ds-zoom))].
      Positions measured with getBoundingClientRect() are screen px; divide by
@@ -482,7 +483,7 @@
 @media (min-width: 1024px) {
   .ds-density-compact,
   :root:has(.ds-density-compact-page) {
-    --ds-zoom: calc(0.75 * var(--ds-scale, 1));
+    --ds-zoom: var(--ds-scale, 1);
   }
   .ds-density-compact body,
   :root:has(.ds-density-compact-page) body {
@@ -650,8 +651,8 @@
   outline: 2px solid rgb(var(--color-textAccent));
   outline-offset: 1px;
 }
-.ds-appnav__current { cursor: default; font-weight: 600; }
-.ds-appnav__current .ds-menu__detail { color: rgb(var(--color-textAccent)); }
+/* The app you are in: in the brand colour (accent text tone, ≥ 4.5:1 in both themes) */
+.ds-menu__item.ds-appnav__current { cursor: default; font-weight: 600; color: rgb(var(--color-textAccent)); }
 
 /* AppSettings: size slider · theme · language, at the end of the bar */
 .ds-appsettings {
@@ -673,25 +674,42 @@
 }
 .ds-appsettings__btn:hover:not(:disabled) { background-color: rgb(var(--color-surfaceMid)); }
 .ds-appsettings__btn:disabled { cursor: default; }
-/* The theme toggle is a glyph (☾ ☀ ◑): give it a readable size */
+/* The theme toggle is a glyph (☾ ☀ ◑): a readable size, in a muted outline */
 .ds-appsettings__btn.ds-nav-item { font-size: 1rem; line-height: 1; }
+.ds-appsettings__theme { border: 1px solid rgb(var(--color-border)); }
 .ds-appsettings__lang { display: inline-flex; }
 /* Active language: bold and underlined (not colour alone); the other stays readable (textMid ≥ 4.5:1) */
 .ds-appsettings__lang .ds-appsettings__btn[aria-pressed="true"] { font-weight: 700; color: rgb(var(--color-textDark)); text-decoration: underline; text-underline-offset: 3px; }
 .ds-appsettings__lang .ds-appsettings__btn[aria-pressed="false"] { color: rgb(var(--color-textMid)); }
-/* The size slider only does something where the desktop density applies */
-.ds-appscale { display: none; align-items: center; gap: 0.375rem; }
+/* The interface size only does something where the desktop density applies */
+.ds-appscale { display: none; align-items: center; }
 @media (min-width: 1024px) {
   .ds-density-compact .ds-appscale,
   :root:has(.ds-density-compact-page) .ds-appscale { display: inline-flex; }
 }
-.ds-appscale input[type="range"] { width: 5rem; accent-color: rgb(var(--color-brand)); }
-/* Narrower desktops: the slider keeps its title and accessible name, the word goes */
-@media (max-width: 1279px) {
-  .ds-appscale__label { display: none; }
-  .ds-appscale input[type="range"] { width: 3.5rem; }
+.ds-appscale__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-variant-numeric: tabular-nums;
 }
-.ds-appscale__value { min-width: 2.5rem; font-variant-numeric: tabular-nums; }
+.ds-appscale__btn[aria-expanded="true"] { background-color: rgb(var(--color-surfaceMid)); }
+.ds-appscale__input {
+  box-sizing: border-box;
+  width: 3.75rem;
+  padding: 0.2rem 0.375rem;
+  border: 1px solid rgb(var(--color-textAccent));
+  border-radius: 0.375rem;
+  background: rgb(var(--color-surface));
+  color: rgb(var(--color-textDark));
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.ds-appscale__input:focus { outline: 2px solid rgb(var(--color-textAccent)); outline-offset: 1px; }
+.ds-appscale__option { width: 100%; border: 0; background: none; font: inherit; text-align: left; font-variant-numeric: tabular-nums; }
+.ds-appscale__option[aria-checked="true"] { font-weight: 700; color: rgb(var(--color-textAccent)); }
+.ds-menu__hint { padding: 0.25rem 0.5rem 0.125rem; font-size: 0.6875rem; color: rgb(var(--color-textSubtle)); border-top: 1px solid rgb(var(--color-border)); margin-top: 0.25rem; }
 
 .ds-app__main {
   flex: 1 1 auto;
