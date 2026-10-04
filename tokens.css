@@ -31,10 +31,10 @@
   --color-borderStrong: 182 176 170; /* #B6B0AA | Warm Mid Stroke – stronger border e.g. active panel edge */
 
   /* IDS domain semantic colors (ISO cardinality concepts) */
-  --color-ids-required:   180 110 20;  /* amber    – required facet */
+  --color-ids-required:   165 101 17;  /* amber    – required facet (fills under white text: ≥ 4.5:1) */
   --color-ids-optional:    13 115 119; /* teal     – optional facet */
   --color-ids-prohibited: 128 0 32;    /* burgundy – prohibited facet */
-  --color-ids-neutral:    154 150 146; /* prim     – n/a / neutral */
+  --color-ids-neutral:    117 114 111; /* prim     – n/a / neutral */
 
   /* Context-mode indicators (IDS app) */
   --color-ctx-doc:   59 130 246;  /* Blue   – documentation / annotation mode */
@@ -84,8 +84,8 @@
     --color-border:       65 60 57; /* Warm Dark Stroke – default border on dark bg */
     --color-borderStrong: 90 84 80; /* Warm Dark Strong Stroke */
 
-    --color-ids-required:   220 150 40;
-    --color-ids-optional:    20 160 165;
+    --color-ids-required:   153 105 28;
+    --color-ids-optional:    16 130 134;
     --color-ids-prohibited: 210 60 80;
 
     --color-ctx-doc:    96 165 250;
@@ -125,8 +125,8 @@
   --color-border:       65 60 57;
   --color-borderStrong: 90 84 80;
 
-  --color-ids-required:   220 150 40;
-  --color-ids-optional:    20 160 165;
+  --color-ids-required:   153 105 28;
+  --color-ids-optional:    16 130 134;
   --color-ids-prohibited: 210 60 80;
 
   --color-ctx-doc:    96 165 250;
@@ -165,7 +165,7 @@
   --color-border:      214 210 206;
   --color-borderStrong: 182 176 170;
 
-  --color-ids-required:   180 110 20;
+  --color-ids-required:   165 101 17;
   --color-ids-optional:    13 115 119;
   --color-ids-prohibited: 128 0 32;
 
