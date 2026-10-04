@@ -685,6 +685,11 @@
   :root:has(.ds-density-compact-page) .ds-appscale { display: inline-flex; }
 }
 .ds-appscale input[type="range"] { width: 5rem; accent-color: rgb(var(--color-brand)); }
+/* Narrower desktops: the slider keeps its title and accessible name, the word goes */
+@media (max-width: 1279px) {
+  .ds-appscale__label { display: none; }
+  .ds-appscale input[type="range"] { width: 3.5rem; }
+}
 .ds-appscale__value { min-width: 2.5rem; font-variant-numeric: tabular-nums; }
 
 .ds-app__main {
