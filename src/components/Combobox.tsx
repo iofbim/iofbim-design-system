@@ -34,8 +34,11 @@ export function Combobox({ value, onValueChange, options, size = "sm", limit = 2
 
     const shown = React.useMemo(() => {
         const all = options.map(norm);
-        const exact = all.some((o) => o.value === value);
-        const words = exact ? [] : value.toLocaleLowerCase().split(/\s+/).filter(Boolean);
+        // A value that is an option shows every option, with that one first: the cap below
+        // must never drop it (a typed exact code in a large list used to vanish)
+        const exact = all.find((o) => o.value === value);
+        if (exact) return [exact, ...all.filter((o) => o !== exact)].slice(0, limit);
+        const words = value.toLocaleLowerCase().split(/\s+/).filter(Boolean);
         const hits = words.length ? all.filter((o) => words.every((w) => `${o.value} ${o.label} ${o.detail ?? ""}`.toLocaleLowerCase().includes(w))) : all;
         return hits.slice(0, limit);
     }, [options, value, limit]);
