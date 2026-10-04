@@ -676,8 +676,9 @@
 /* The theme toggle is a glyph (☾ ☀ ◑): give it a readable size */
 .ds-appsettings__btn.ds-nav-item { font-size: 1rem; line-height: 1; }
 .ds-appsettings__lang { display: inline-flex; }
-.ds-appsettings__lang .ds-appsettings__btn[aria-pressed="true"] { font-weight: 700; color: rgb(var(--color-textDark)); }
-.ds-appsettings__lang .ds-appsettings__btn[aria-pressed="false"] { color: rgb(var(--color-textMuted)); }
+/* Active language: bold and underlined (not colour alone); the other stays readable (textMid ≥ 4.5:1) */
+.ds-appsettings__lang .ds-appsettings__btn[aria-pressed="true"] { font-weight: 700; color: rgb(var(--color-textDark)); text-decoration: underline; text-underline-offset: 3px; }
+.ds-appsettings__lang .ds-appsettings__btn[aria-pressed="false"] { color: rgb(var(--color-textMid)); }
 /* The size slider only does something where the desktop density applies */
 .ds-appscale { display: none; align-items: center; gap: 0.375rem; }
 @media (min-width: 1024px) {
