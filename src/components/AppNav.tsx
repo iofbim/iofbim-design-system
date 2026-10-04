@@ -162,11 +162,13 @@ export type AppSettingsProps = {
     showThemeToggle?: boolean;
     /** The size slider; it only shows where the desktop density applies */
     showScale?: boolean;
+    /** EN | TR; off for apps with one language */
+    showLanguage?: boolean;
     className?: string;
 };
 
 /** Size slider · theme · language, for the right end of the app bar */
-export function AppSettings({ lang = "en", onToggleLang, showThemeToggle = true, showScale = true, className = "" }: AppSettingsProps) {
+export function AppSettings({ lang = "en", onToggleLang, showThemeToggle = true, showScale = true, showLanguage = true, className = "" }: AppSettingsProps) {
     const t = LABELS[lang];
     const [scale, setScale] = useUiScale();
     const index = Math.max(0, UI_SCALES.findIndex((s) => Math.abs(s - scale) < 0.01));
@@ -189,7 +191,7 @@ export function AppSettings({ lang = "en", onToggleLang, showThemeToggle = true,
                 </label>
             )}
             {showThemeToggle && <ThemeToggle className="ds-appsettings__btn" />}
-            <div className="ds-appsettings__lang" role="group" aria-label={t.language}>
+            {showLanguage && <div className="ds-appsettings__lang" role="group" aria-label={t.language}>
                 {(["en", "tr"] as const).map((code) => (
                     <button
                         key={code}
@@ -202,7 +204,7 @@ export function AppSettings({ lang = "en", onToggleLang, showThemeToggle = true,
                         {code.toUpperCase()}
                     </button>
                 ))}
-            </div>
+            </div>}
         </div>
     );
 }
