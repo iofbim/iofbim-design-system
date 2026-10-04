@@ -27,7 +27,11 @@ const LABELS = {
         home: "I of BIM",
         homeTitle: "I of BIM: home page",
         switchTitle: "Other I of BIM tools",
-        typeHint: "Click the number again to type a size",
+        typeHint: "Click the number to type a size",
+        smaller: "Smaller",
+        larger: "Larger",
+        reset: "Reset to 100%",
+        nextLang: "Türkçe’ye geç",
         short: { ifcSchema: "IFC Schema", bep: "BEP", ids: "IDS", loin: "L.O.I.N", ifcGraph: "IFC Graph" },
         long: { ifcSchema: "IFC Schema", bep: "BEP Authoring Tool", ids: "IDS Authoring Tool", loin: "L.O.I.N Authoring Tool", ifcGraph: "IFC Graph" },
         sizeTitle: "Interface size",
@@ -37,7 +41,11 @@ const LABELS = {
         home: "I of BIM",
         homeTitle: "I of BIM: ana sayfa",
         switchTitle: "Diğer I of BIM araçları",
-        typeHint: "Bir boyut yazmak için sayıya yeniden tıklayın",
+        typeHint: "Bir boyut yazmak için sayıya tıklayın",
+        smaller: "Küçült",
+        larger: "Büyüt",
+        reset: "%100’e döndür",
+        nextLang: "Switch to English",
         short: { ifcSchema: "IFC Şeması", bep: "BEP", ids: "IDS", loin: "L.O.I.N", ifcGraph: "IFC Grafik" },
         long: { ifcSchema: "IFC Şeması", bep: "BEP Oluşturma Aracı", ids: "IDS Oluşturma Aracı", loin: "L.O.I.N Oluşturma Aracı", ifcGraph: "IFC Grafik Görüntüleyici" },
         sizeTitle: "Arayüz boyutu",
@@ -159,7 +167,7 @@ export type AppSettingsProps = {
     showThemeToggle?: boolean;
     /** The interface size control; it only shows where the desktop density applies */
     showScale?: boolean;
-    /** EN | TR; off for apps with one language */
+    /** The language toggle (shows the current one); off for apps with one language */
     showLanguage?: boolean;
     className?: string;
 };
@@ -167,10 +175,12 @@ export type AppSettingsProps = {
 /** Typed sizes are kept within this range (percent) */
 const SCALE_MIN = 50;
 const SCALE_MAX = 200;
+const STEP = 0.25;
 
 /**
- * The interface size: a button with the current percentage. A click lists the steps; a
- * second click on the number turns it into a field for any size (Enter applies, Esc cancels).
+ * The interface size: an "Aa" button that shows the size only when it is not 100 %, and opens
+ * a small panel: − / + in 25 % steps, the preset sizes, a reset, and the number itself, which
+ * turns into a field for any size when clicked (Enter applies, Esc cancels).
  */
 function ScaleControl({ lang }: { lang: Lang }) {
     const t = LABELS[lang];
@@ -179,82 +189,97 @@ function ScaleControl({ lang }: { lang: Lang }) {
     const [open, setOpen] = React.useState(false);
     const [editing, setEditing] = React.useState(false);
     const [draft, setDraft] = React.useState(String(pct));
-    const anchor = React.useRef<HTMLSpanElement | null>(null);
-    const list = React.useRef<HTMLUListElement | null>(null);
+    const button = React.useRef<HTMLButtonElement | null>(null);
+    const panel = React.useRef<HTMLDivElement | null>(null);
     const input = React.useRef<HTMLInputElement | null>(null);
     const close = React.useCallback(() => { setOpen(false); setEditing(false); }, []);
-    const place = useMenuPlacement(anchor, list, open, close);
-    const menuId = React.useId();
+    const place = useMenuPlacement(button, panel, open, close, "right");
+    const panelId = React.useId();
 
     React.useEffect(() => { if (editing) { input.current?.focus(); input.current?.select(); } }, [editing]);
+    React.useEffect(() => {
+        if (open && place) panel.current?.querySelector<HTMLElement>(".ds-appscale__value")?.focus();
+    }, [open, place]);
 
+    const clamp = (p: number) => Math.min(SCALE_MAX, Math.max(SCALE_MIN, p)) / 100;
     const commit = () => {
         const v = Math.round(Number(draft.replace(/[^\d.]/g, "")));
-        if (Number.isFinite(v) && v > 0) setScale(Math.min(SCALE_MAX, Math.max(SCALE_MIN, v)) / 100);
-        close();
+        if (Number.isFinite(v) && v > 0) setScale(clamp(v));
+        setEditing(false);
     };
-    const pick = (s: number) => { setScale(s); close(); };
+    // − / + land on the 25 % grid (a typed 110 % goes to 100 % or 125 %)
+    const step = (dir: 1 | -1) => {
+        const next = dir > 0 ? Math.floor(scale / STEP + 1e-6) * STEP + STEP : Math.ceil(scale / STEP - 1e-6) * STEP - STEP;
+        setScale(clamp(Math.round(next * 100)));
+    };
+    const onPanelKey = (e: React.KeyboardEvent) => {
+        if (e.key === "Escape" && !editing) { e.preventDefault(); close(); button.current?.focus(); }
+    };
 
     return (
-        <span ref={anchor} className="ds-appscale" title={t.sizeTitle}>
-            {editing ? (
-                <input
-                    ref={input}
-                    className="ds-appscale__input"
-                    inputMode="numeric"
-                    aria-label={t.sizeTitle}
-                    value={draft}
-                    onChange={(e) => setDraft(e.target.value)}
-                    onKeyDown={(e) => {
-                        if (e.key === "Enter") { e.preventDefault(); commit(); }
-                        else if (e.key === "Escape") { e.preventDefault(); close(); }
-                    }}
-                    onBlur={() => { if (editing) commit(); }}
-                />
-            ) : (
-                <button
-                    type="button"
-                    className="ds-appsettings__btn ds-appscale__btn"
-                    aria-haspopup="menu"
-                    aria-expanded={open}
-                    aria-controls={open ? menuId : undefined}
-                    aria-label={`${t.sizeTitle}: ${pct}%`}
-                    onClick={() => {
-                        // First click lists the steps; a click while they show opens the field
-                        if (!open) { setOpen(true); return; }
-                        setDraft(String(pct));
-                        setEditing(true);
-                    }}
-                >
-                    {pct}%
-                    <svg className="ds-select__chevron" viewBox="0 0 12 12" aria-hidden="true">
-                        <path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                </button>
-            )}
+        <>
+            <button
+                ref={button}
+                type="button"
+                className="ds-appsettings__btn ds-appscale ds-appscale__btn"
+                aria-haspopup="dialog"
+                aria-expanded={open}
+                aria-controls={open ? panelId : undefined}
+                aria-label={`${t.sizeTitle}: ${pct}%`}
+                title={t.sizeTitle}
+                onClick={() => (open ? close() : setOpen(true))}
+            >
+                <span className="ds-appscale__glyph" aria-hidden="true">Aa</span>
+                {pct !== 100 && <span className="ds-appscale__badge">{pct}%</span>}
+            </button>
             {open && place && typeof document !== "undefined" && createPortal(
-                <ul ref={list} id={menuId} role="menu" aria-label={t.sizeTitle} className="ds-menu ds-scroll-quiet" style={menuStyle(place)}>
-                    {UI_SCALES.map((s) => (
-                        <li key={s} role="none">
+                <div ref={panel} id={panelId} role="dialog" aria-label={t.sizeTitle} className="ds-menu ds-appscale__panel" style={menuStyle(place)} onKeyDown={onPanelKey}>
+                    <div className="ds-appscale__title">{t.sizeTitle}</div>
+                    <div className="ds-appscale__stepper">
+                        <button type="button" className="ds-appscale__step" aria-label={t.smaller} title={t.smaller} disabled={pct <= SCALE_MIN} onClick={() => step(-1)}>−</button>
+                        {editing ? (
+                            <input
+                                ref={input}
+                                className="ds-appscale__input"
+                                inputMode="numeric"
+                                aria-label={t.sizeTitle}
+                                value={draft}
+                                onChange={(e) => setDraft(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter") { e.preventDefault(); commit(); }
+                                    else if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); setEditing(false); }
+                                }}
+                                onBlur={commit}
+                            />
+                        ) : (
                             <button
                                 type="button"
-                                role="menuitemradio"
-                                aria-checked={Math.abs(s - scale) < 0.001}
-                                className="ds-menu__item ds-appscale__option"
-                                onMouseDown={(e) => e.preventDefault()}
-                                onClick={() => pick(s)}
+                                className="ds-appscale__value"
+                                title={t.typeHint}
+                                aria-label={`${pct}%. ${t.typeHint}`}
+                                onClick={() => { setDraft(String(pct)); setEditing(true); }}
                             >
-                                <span className="ds-menu__label">{Math.round(s * 100)}%</span>
+                                {pct}%
                             </button>
-                        </li>
-                    ))}
-                    <li role="none" className="ds-menu__hint">{t.typeHint}</li>
-                </ul>,
+                        )}
+                        <button type="button" className="ds-appscale__step" aria-label={t.larger} title={t.larger} disabled={pct >= SCALE_MAX} onClick={() => step(1)}>+</button>
+                    </div>
+                    <div className="ds-appscale__presets" role="group" aria-label={t.sizeTitle}>
+                        {UI_SCALES.map((s) => (
+                            <button key={s} type="button" className="ds-appscale__preset" aria-pressed={Math.abs(s - scale) < 0.001} onClick={() => setScale(s)}>
+                                {Math.round(s * 100)}
+                            </button>
+                        ))}
+                    </div>
+                    <button type="button" className="ds-appscale__reset" disabled={pct === 100} onClick={() => setScale(1)}>{t.reset}</button>
+                </div>,
                 document.body,
             )}
-        </span>
+        </>
     );
 }
+
+const LANG_NAMES: Record<Lang, string> = { en: "English", tr: "Türkçe" };
 
 /** Interface size · theme · language, for the right end of the app bar */
 export function AppSettings({ lang = "en", onToggleLang, showThemeToggle = true, showScale = true, showLanguage = true, className = "" }: AppSettingsProps) {
@@ -263,20 +288,20 @@ export function AppSettings({ lang = "en", onToggleLang, showThemeToggle = true,
         <div className={`ds-appsettings ${className}`}>
             {showScale && <ScaleControl lang={lang} />}
             {showThemeToggle && <ThemeToggle className="ds-appsettings__btn ds-appsettings__theme" />}
-            {showLanguage && <div className="ds-appsettings__lang" role="group" aria-label={t.language}>
-                {(["en", "tr"] as const).map((code) => (
-                    <button
-                        key={code}
-                        type="button"
-                        className="ds-appsettings__btn"
-                        aria-pressed={lang === code}
-                        disabled={!onToggleLang}
-                        onClick={() => { if (lang !== code) onToggleLang?.(); }}
-                    >
-                        {code.toUpperCase()}
-                    </button>
-                ))}
-            </div>}
+            {/* The current language; a click switches to the other one */}
+            {showLanguage && (
+                <button
+                    type="button"
+                    className="ds-appsettings__btn ds-appsettings__lang"
+                    lang={lang}
+                    aria-label={`${t.language}: ${LANG_NAMES[lang]}. ${t.nextLang}`}
+                    title={t.nextLang}
+                    disabled={!onToggleLang}
+                    onClick={() => onToggleLang?.()}
+                >
+                    {lang.toUpperCase()}
+                </button>
+            )}
         </div>
     );
 }
