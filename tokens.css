@@ -459,6 +459,8 @@
      From 1024px up the app renders at 75%, like a browser zoom of 75%, via
      CSS `zoom` on <body>. Phones stay at 100%. The site TopNav is zoomed
      back to full size, so it looks the same on the website and in every app.
+     The interface size slider (AppSettings) scales it: --ds-scale on <html>,
+     1 = 75%, 1.25 ≈ 94%, 0.5 = 37.5% (saved per browser as iofbim.uiScale).
      --ds-zoom holds the current factor: 100vh / 100dvh are NOT zoomed, so
      viewport-height sizes divide by it, e.g. h-[calc(100dvh/var(--ds-zoom))].
      Positions measured with getBoundingClientRect() are screen px; divide by
@@ -480,7 +482,7 @@
 @media (min-width: 1024px) {
   .ds-density-compact,
   :root:has(.ds-density-compact-page) {
-    --ds-zoom: 0.75;
+    --ds-zoom: calc(0.75 * var(--ds-scale, 1));
   }
   .ds-density-compact body,
   :root:has(.ds-density-compact-page) body {
@@ -538,7 +540,11 @@
    ------------------------------------------------------------------------ */
 :root:has(.ds-app) {
   font-size: 16px;
-  /* Bottom edge of the floating TopNav (size md) in screen px; the app starts 1rem below it */
+  /* Apps with their nav in the bar (AppNav) start at the top of the window */
+  --ds-topnav-bottom: 0px;
+}
+/* Bottom edge of the floating TopNav (size md) in screen px, on pages that still show it */
+:root:has(.ds-app):has(.ds-topnav) {
   --ds-topnav-bottom: 59px;
 }
 .ds-app {
@@ -606,6 +612,78 @@
   color: rgb(var(--color-textDark));
   border-bottom-color: rgb(var(--color-brand));
 }
+
+/* AppNav: "I of BIM › IDS ▾" at the start of the bar; the switcher lists every tool */
+.ds-appnav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-size: 0.8125rem;
+}
+.ds-appnav__home {
+  font-weight: 700;
+  color: rgb(var(--color-textAccent));
+  text-decoration: none;
+}
+.ds-appnav__home:hover { text-decoration: underline; }
+.ds-appnav__sep { color: rgb(var(--color-textMuted)); }
+.ds-appnav__switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.375rem;
+  border: 0;
+  border-radius: 0.375rem;
+  background: none;
+  color: rgb(var(--color-textDark));
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.ds-appnav__switch:hover,
+.ds-appnav__switch[aria-expanded="true"] { background-color: rgb(var(--color-surfaceMid)); }
+.ds-appnav__home:focus-visible,
+.ds-appnav__switch:focus-visible,
+.ds-appsettings__btn:focus-visible {
+  outline: 2px solid rgb(var(--color-textAccent));
+  outline-offset: 1px;
+}
+.ds-appnav__current { cursor: default; font-weight: 600; }
+.ds-appnav__current .ds-menu__detail { color: rgb(var(--color-textAccent)); }
+
+/* AppSettings: size slider · theme · language, at the end of the bar */
+.ds-appsettings {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  color: rgb(var(--color-textMid));
+}
+.ds-appsettings__btn {
+  padding: 0.25rem 0.375rem;
+  border: 0;
+  border-radius: 0.375rem;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.ds-appsettings__btn:hover:not(:disabled) { background-color: rgb(var(--color-surfaceMid)); }
+.ds-appsettings__btn:disabled { cursor: default; }
+.ds-appsettings__lang { display: inline-flex; }
+.ds-appsettings__lang .ds-appsettings__btn[aria-pressed="true"] { font-weight: 700; color: rgb(var(--color-textDark)); }
+.ds-appsettings__lang .ds-appsettings__btn[aria-pressed="false"] { color: rgb(var(--color-textMuted)); }
+/* The size slider only does something where the desktop density applies */
+.ds-appscale { display: none; align-items: center; gap: 0.375rem; }
+@media (min-width: 1024px) {
+  .ds-density-compact .ds-appscale,
+  :root:has(.ds-density-compact-page) .ds-appscale { display: inline-flex; }
+}
+.ds-appscale input[type="range"] { width: 5rem; accent-color: rgb(var(--color-brand)); }
+.ds-appscale__value { min-width: 2.5rem; font-variant-numeric: tabular-nums; }
 
 .ds-app__main {
   flex: 1 1 auto;

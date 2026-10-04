@@ -7,5 +7,6 @@ export * from './components/Card';
 export * from './components/Label';
 export * from './components/Dialog';
 export * from './components/TopNav';
+export * from './components/AppNav';
 export * from './components/ThemeProvider';
 export * from './components/ThemeToggle';

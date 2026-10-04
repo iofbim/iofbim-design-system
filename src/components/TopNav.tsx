@@ -72,7 +72,7 @@ const defaultLabels = {
         bep: "BEP Oluşturma Aracı",
         ids: "IDS Oluşturma Aracı",
         loin: "L.O.I.N Oluşturma Aracı",
-        ifcGraph: "IFC Grafiği",
+        ifcGraph: "IFC Grafik Görüntüleyici",
         en: "EN",
         tr: "TR",
         divider: "|",
