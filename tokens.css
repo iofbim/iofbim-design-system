@@ -531,7 +531,8 @@
    .ds-app           Root of the app: one viewport under the floating TopNav.
                      Up to 96rem wide (Tailwind `screen-2xl`) with 1.5rem side
                      padding; children stack with a 0.75rem gap.
-     .ds-app__bar      The app's top bar (title, tabs, actions): a 3.5rem panel.
+     .ds-app__bar      The app's top bar (title, tabs, actions): a 3.5rem panel that
+                       wraps on narrow screens; see .ds-app__lead / __tabs / __actions.
        .ds-app__title    Document / project name in the bar.
        .ds-app__tab      A tab in the bar; mark the active one with
                          aria-current="page" or aria-selected="true".
@@ -601,10 +602,11 @@
 
 .ds-app__bar {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0 0.75rem;
   flex-shrink: 0;
-  height: 3.5rem;
+  min-height: 3.5rem;
   padding: 0 0.75rem 0 1rem;
   min-width: 0;
   background-color: rgb(var(--color-surface));
@@ -634,6 +636,63 @@
   transition: color 0.15s ease, border-color 0.15s ease;
 }
 .ds-app__tab:hover { color: rgb(var(--color-textDark)); }
+
+/* The bar's parts, so it holds one row from 1280px and wraps cleanly below it:
+     .ds-app__lead     AppNav, divider and title. Its own row on phones (<640px).
+     .ds-app__tabs     The section tabs. Below 1280px they take the last row and scroll sideways.
+     .ds-app__actions  Buttons and AppSettings, right-aligned; they wrap only when they must.
+     .ds-app__status   Status text beside the actions: shown from 1536px, below that read by screen
+                       readers only (a live status keeps announcing). */
+.ds-app__lead {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+  width: 100%;
+  padding: 0.375rem 0;
+}
+.ds-app__tabs {
+  order: 99;
+  display: flex;
+  align-self: stretch;
+  width: 100%;
+  min-height: 2.5rem;
+  margin-bottom: -1px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.ds-app__tabs::-webkit-scrollbar { display: none; }
+.ds-app__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem 0.625rem;
+  margin-left: auto;
+  padding: 0.375rem 0;
+}
+.ds-app__status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+@media (min-width: 640px) {
+  .ds-app__lead { width: auto; flex: 1 1 0%; }
+}
+@media (min-width: 1280px) {
+  .ds-app__lead { flex: 0 1 auto; padding: 0; }
+  .ds-app__tabs { order: 0; width: auto; min-height: 0; }
+  .ds-app__actions { flex-wrap: nowrap; }
+}
+@media (min-width: 1536px) {
+  .ds-app__status { position: static; width: auto; height: auto; margin: 0; overflow: visible; clip: auto; white-space: normal; }
+}
 .ds-app__tab[aria-current="page"],
 .ds-app__tab[aria-selected="true"] {
   color: rgb(var(--color-textDark));
