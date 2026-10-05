@@ -28,7 +28,7 @@ export type ComboboxOption =
         section?: string;
     };
 
-type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "value" | "onChange" | "size" | "list">;
+type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "value" | "onChange" | "size" | "list" | "onToggle">;
 export type ComboboxProps = InputProps & {
     value: string;
     /** Called with the new text, typed or picked */

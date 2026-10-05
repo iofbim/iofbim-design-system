@@ -72,7 +72,14 @@ export function MultiSelect({
         (list.current?.querySelector<HTMLElement>("input[type=search]") ?? list.current?.querySelector<HTMLElement>("[role=option]"))?.focus();
     }, [open, place]);
 
-    const toggle = (v: string) => onChange(chosen.has(v) ? value.filter((x) => x !== v) : [...value, v]);
+    // Values come back in the order of `options` (what users see), whatever order they were ticked
+    // in; a value that is not an option yet (one just created) goes last
+    const ordered = (values: string[]) => {
+        const set = new Set(values);
+        const known = new Set(options.map((o) => o.value));
+        return [...options.map((o) => o.value).filter((v) => set.has(v)), ...values.filter((v) => !known.has(v))];
+    };
+    const toggle = (v: string) => onChange(ordered(chosen.has(v) ? value.filter((x) => x !== v) : [...value, v]));
     const labels = options.filter((o) => chosen.has(o.value)).map((o) => o.label);
     // Values not in the options (e.g. just created) still count
     for (const v of value) if (!options.some((o) => o.value === v)) labels.push(v);
@@ -121,7 +128,7 @@ export function MultiSelect({
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
                             onKeyDown={(e) => {
-                                if (e.key === "Enter" && canCreate) { e.preventDefault(); onCreate!(typed); onChange([...value, typed]); setQuery(""); }
+                                if (e.key === "Enter" && canCreate) { e.preventDefault(); onCreate!(typed); onChange(ordered([...value, typed])); setQuery(""); }
                             }}
                         />
                     )}
@@ -155,7 +162,7 @@ export function MultiSelect({
                                     type="button"
                                     data-create
                                     className="ds-menu__item ds-menu__action ds-multiselect__create"
-                                    onClick={() => { onCreate!(typed); onChange([...value, typed]); setQuery(""); }}
+                                    onClick={() => { onCreate!(typed); onChange(ordered([...value, typed])); setQuery(""); }}
                                 >
                                     <span className="ds-menu__label">{createLabel.replace("{text}", typed)}</span>
                                 </button>
